@@ -1,6 +1,8 @@
-openai==0.28.1
+openai
 langchain==0.0.320
 python-dotenv
 chromadb==0.5.0
+langchain-openai
 pypdf
 langchain-community
+google-search-results
