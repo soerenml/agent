@@ -10,3 +10,5 @@ langchain-text-splitters
 langchainhub
 pandas
 yfinance
+matplotlib
+PyPDF2
