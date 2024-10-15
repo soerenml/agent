@@ -18,8 +18,8 @@ all_headlines = scrape(url="https://news.google.com/search?q=dell&hl=en-US&gl=US
 # ----------------- Analyze content -----------------
 from agents import finance_news_analyst
 prompt = "src/prompts/news.md"
-result = finance_news_analyst(prompt, all_headlines, llm)
-print(result)
+result_1 = finance_news_analyst(prompt, all_headlines, llm)
+print(result_1)
 
 # ----------------- Scrape financial data -----------------
 from scraper.yfinance import download_yfinance_data
@@ -34,5 +34,11 @@ plot_technical_indicators(data=data)
 # ----------------- Analyze financial data -----------------
 from agents import finance_data_analyst
 prompt = "src/prompts/financial_analyst.md"
-result = finance_data_analyst(prompt, data, llm)
-print(result)
+result_2 = finance_data_analyst(prompt, data, llm)
+print(result_2)
+
+# ----------------- Head analyst -----------------
+from agents import head_analyst
+prompt = "src/prompts/head_analyst.md"
+result_3 = head_analyst(prompt, result_1, result_2, llm)
+print(result_3)
