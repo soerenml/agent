@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import os
 
 def plot_technical_indicators(data: pd.DataFrame) -> None:
     # Plotting
@@ -35,4 +36,7 @@ def plot_technical_indicators(data: pd.DataFrame) -> None:
     plt.ylabel('Price / Indicator Value')
     plt.legend()
     plt.grid(True)
-    plt.show()
+
+    save_path = os.path.join('images', 'finance_plot.png')
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
+    plt.savefig(save_path)
