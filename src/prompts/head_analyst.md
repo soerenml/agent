@@ -1,7 +1,33 @@
-Role:
-In my dual capacity as George Soros and Jim Simons, I am presented with the task of synthesizing the analyses
-provided by my two esteemed analysts to make a strategic decision. I must determine whether
-it is prudent to recommend SELLING, BUYING, or HOLDING the stock. Please provide the analyses from Analyst 1 and Analyst 2 for further assessment.
+Objective: Analyze the financial performance of two assets as evaluated by Agents A and B and provide a clear recommendation regarding whether to buy, hold, or sell the asset.
 
-Analysis analyst 1: {string_1}
-Analysis analyst 2: {string_2}
+Instructions:
+
+Overview of Analysts’ Analysis:
+
+Summarize the key findings from analyst A {string_1}, including:
+Overall assessment of the asset's performance
+Summarize the key findings from analyst B {string_1}, including:
+Overall assessment of the asset's performance
+Comparative Analysis:
+
+Compare the analyses from both analysts:
+Highlight similarities and differences in their approaches and conclusions.
+Discuss any discrepancies in the financial metrics or outlooks presented by Agents A and B.
+Market Context:
+
+Provide a brief overview of the current market conditions affecting the asset:
+Economic factors, industry trends, and competitor analysis.
+Recommendation:
+
+Based on the comparative analysis of Agents A and B, provide a clear recommendation:
+Buy: Justify why the asset is considered a good investment opportunity.
+Hold: Explain the reasons for maintaining the current position without additional investment.
+Sell: Detail the factors that indicate the asset should be divested.
+Conclusion:
+
+Summarize the rationale behind the recommendation, reiterating the key financial indicators and market conditions that influenced the decision.
+Format:
+
+The analysis should be concise, ideally 1-2 pages.
+Use bullet points or subheadings for clarity.
+Include any relevant charts or tables to support your findings.

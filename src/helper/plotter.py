@@ -31,7 +31,7 @@ def plot_technical_indicators(data: pd.DataFrame) -> None:
     plt.plot(data.index, macd, label='MACD', color='red')
     plt.plot(data.index, signal, label='MACD Signal', color='cyan')
 
-    plt.title('Dell Technologies Inc. Stock Price & Technical Indicators Over Time')
+    plt.title('rice & Technical Indicators Over Time')
     plt.xlabel('Date')
     plt.ylabel('Price / Indicator Value')
     plt.legend()
@@ -39,4 +39,9 @@ def plot_technical_indicators(data: pd.DataFrame) -> None:
 
     save_path = os.path.join('images', 'finance_plot.png')
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
-    plt.savefig(save_path)
+
+    try:
+        plt.savefig(save_path)
+        print(f"File saved successfully at {save_path}")
+    except Exception as e:
+        print(f"An error occurred: {e}")

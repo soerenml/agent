@@ -36,8 +36,7 @@ def finance_data_analyst(prompt: str, data: pd.DataFrame, llm: ChatOpenAI):
     prompt_custom = PromptTemplate.from_template(markdown_string)
 
     rag_chain = (
-        {"data": RunnablePassthrough()}
-        | prompt_custom
+        prompt_custom
         | llm
         | StrOutputParser()
     )
@@ -73,8 +72,7 @@ def finance_news_analyst(prompt: str, all_headlines: list, llm: ChatOpenAI):
     prompt_custom = PromptTemplate.from_template(markdown_string)
 
     rag_chain = (
-        {"headlines": RunnablePassthrough()}
-        | prompt_custom
+        prompt_custom
         | llm
         | StrOutputParser()
     )
@@ -111,8 +109,7 @@ def head_analyst(prompt: str, result_1: str, result_2: str, llm: ChatOpenAI):
     prompt_custom = PromptTemplate.from_template(markdown_string)
 
     rag_chain = (
-        {"string_1": RunnablePassthrough(), "string_2": RunnablePassthrough(), "string_3": RunnablePassthrough()}
-        | prompt_custom
+        prompt_custom
         | llm
         | StrOutputParser()
     )
