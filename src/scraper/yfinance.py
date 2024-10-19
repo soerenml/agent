@@ -68,7 +68,11 @@ def calculate_macd(df, short_period=12, long_period=26, signal_period=9):
     return macd_line, signal_line, macd_histogram
 
 
-def download_yfinance_data(ticker_symbol: str, start_date: datetime, end_date: datetime) -> pd.DataFrame:
+def download_yfinance_data(
+        ticker_symbol: str,
+        start_date: datetime,
+        asset: str,
+        end_date: datetime) -> pd.DataFrame:
     """
     Downloads historical stock data for a given ticker symbol from Yahoo Finance.
 
@@ -84,6 +88,7 @@ def download_yfinance_data(ticker_symbol: str, start_date: datetime, end_date: d
     # Download the data
     yfinance_data = yf.download(ticker_symbol, start=start_date, end=end_date, interval='1d')
     yfinance_data['Ticker'] = ticker_symbol
+    yfinance_data['ASSET'] = asset
     yfinance_data['RSI'] = calculate_rsi(yfinance_data)
     yfinance_data['MACD'], yfinance_data['Signal_Line'], yfinance_data['MACD_Histogram'] = calculate_macd(yfinance_data)
     print("\n\nyfinance data to be used\n\n")
