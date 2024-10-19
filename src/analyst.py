@@ -7,8 +7,7 @@ from datetime import datetime, timedelta
 load_dotenv()
 
 from langchain_openai import ChatOpenAI
-llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"),
-                 model= "gpt-4")
+llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model= "gpt-4")
 
 
 # ----------------- Scrape news headlines -----------------

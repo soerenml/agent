@@ -3,39 +3,39 @@ import pandas as pd
 import os
 
 def plot_technical_indicators(data: pd.DataFrame) -> None:
-    # Plotting
-    plt.figure(figsize=(12, 8))
 
-    # Close price
-    plt.plot(data.index, data['Close'], label='Close Price', color='blue')
+    data.reset_index(inplace=True)
+    data['Date'] = pd.to_datetime(data['Date'])
+    data.set_index('Date', inplace=True)
 
-    # Moving Averages (MA)
-    data['50-Day MA'] = data['Close'].rolling(window=50).mean()
-    data['200-Day MA'] = data['Close'].rolling(window=200).mean()
-    plt.plot(data.index, data['50-Day MA'], label='50-Day MA', color='orange')
-    plt.plot(data.index, data['200-Day MA'], label='200-Day MA', color='green')
+    # Calculating 20-day and 50-day moving averages
+    data['20_MA'] = data['Close'].rolling(window=20).mean()
+    data['50_MA'] = data['Close'].rolling(window=50).mean()
 
-    # Relative Strength Index (RSI)
-    delta = data['Close'].diff()
-    gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
-    loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
-    rs = gain / loss
-    rsi = 100 - (100 / (1 + rs))
-    plt.plot(data.index, rsi, label='RSI', color='purple')
+    # Creating the plot
+    plt.figure(figsize=(10, 6))
 
-    # Moving Average Convergence Divergence (MACD)
-    ema_12 = data['Close'].ewm(span=12, min_periods=12).mean()
-    ema_26 = data['Close'].ewm(span=26, min_periods=26).mean()
-    macd = ema_12 - ema_26
-    signal = macd.ewm(span=9, min_periods=9).mean()
-    plt.plot(data.index, macd, label='MACD', color='red')
-    plt.plot(data.index, signal, label='MACD Signal', color='cyan')
-
-    plt.title('rice & Technical Indicators Over Time')
-    plt.xlabel('Date')
-    plt.ylabel('Price / Indicator Value')
-    plt.legend()
+    # Plotting close price with 20-day and 50-day moving averages
+    plt.subplot(2, 1, 1)
+    plt.plot(data.index, data['Close'], label='Close Price', marker='.')
+    plt.plot(data.index, data['20_MA'], label='20 Day MA', linestyle='--', color='orange')
+    plt.plot(data.index, data['50_MA'], label='50 Day MA', linestyle='--', color='green')
+    plt.title('Close Price with 20 and 50 Day Moving Averages')
+    plt.ylabel('Price (USD)')
     plt.grid(True)
+    plt.legend()
+
+    # Plotting MACD and MACD Histogram
+    plt.subplot(2, 1, 2)
+    plt.plot(data.index, data['MACD'], label='MACD', marker='.')
+    plt.plot(data.index, data['Signal_Line'], label='Signal Line', marker='.', linestyle='--')
+    plt.bar(data.index, data['MACD_Histogram'], label='MACD Histogram', alpha=0.5)
+    plt.title('MACD Analysis')
+    plt.ylabel('MACD Value')
+    plt.grid(True)
+    plt.legend()
+
+    plt.tight_layout()
 
     save_path = os.path.join('images', 'finance_plot.png')
     os.makedirs(os.path.dirname(save_path), exist_ok=True)

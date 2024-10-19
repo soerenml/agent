@@ -3,11 +3,89 @@ import yfinance as yf
 import pandas as pd
 from datetime import datetime
 
-def download_yfinance_data(ticker_symbol: str, start_date: datetime, end_date: datetime) -> pd.DataFrame:
+def calculate_rsi(df: pd.DataFrame, periods=14):
+    """
+    Calculate the Relative Strength Index (RSI) for a given DataFrame.
 
+    Parameters:
+    - df (pd.DataFrame): The DataFrame containing the stock data.
+    - periods (int): The number of periods to consider for calculating RSI. Default is 14.
+
+    Returns:
+    - rsi (pd.Series): The calculated RSI values.
+
+    """
+    # Calculate the price change (difference between each closing price)
+    delta = df['Close'].diff()
+
+    # Separate the gains and the losses
+    gain = (delta.where(delta > 0, 0))
+    loss = (-delta.where(delta < 0, 0))
+
+    # Calculate the average gain and loss over the periods (usually 14 days)
+    avg_gain = gain.rolling(window=periods, min_periods=1).mean()
+    avg_loss = loss.rolling(window=periods, min_periods=1).mean()
+
+    # Calculate the relative strength (RS)
+    rs = avg_gain / avg_loss
+
+    # Calculate the RSI using the formula
+    rsi = 100 - (100 / (1 + rs))
+
+    return rsi
+
+
+def calculate_macd(df, short_period=12, long_period=26, signal_period=9):
+    """
+    Calculates the Moving Average Convergence Divergence (MACD) indicators for a given DataFrame.
+
+    Parameters:
+    - df (pandas.DataFrame): The DataFrame containing the stock data.
+    - short_period (int): The number of periods for the short-term EMA. Default is 12.
+    - long_period (int): The number of periods for the long-term EMA. Default is 26.
+    - signal_period (int): The number of periods for the signal line EMA. Default is 9.
+
+    Returns:
+    - macd_line (pandas.Series): The MACD line.
+    - signal_line (pandas.Series): The signal line.
+    - macd_histogram (pandas.Series): The MACD histogram.
+    """
+    # Calculate the short-term (12-period) EMA
+    short_ema = df['Close'].ewm(span=short_period, adjust=False).mean()
+
+    # Calculate the long-term (26-period) EMA
+    long_ema = df['Close'].ewm(span=long_period, adjust=False).mean()
+
+    # Calculate the MACD line (difference between short and long EMA)
+    macd_line = short_ema - long_ema
+
+    # Calculate the Signal line (9-period EMA of the MACD line)
+    signal_line = macd_line.ewm(span=signal_period, adjust=False).mean()
+
+    # Calculate the MACD histogram (difference between MACD line and Signal line)
+    macd_histogram = macd_line - signal_line
+
+    return macd_line, signal_line, macd_histogram
+
+
+def download_yfinance_data(ticker_symbol: str, start_date: datetime, end_date: datetime) -> pd.DataFrame:
+    """
+    Downloads historical stock data for a given ticker symbol from Yahoo Finance.
+
+    Args:
+        ticker_symbol (str): The ticker symbol of the stock.
+        start_date (datetime): The start date of the data to download.
+        end_date (datetime): The end date of the data to download.
+
+    Returns:
+        pd.DataFrame: A DataFrame containing the downloaded stock data.
+
+    """
     # Download the data
     yfinance_data = yf.download(ticker_symbol, start=start_date, end=end_date, interval='1d')
     yfinance_data['Ticker'] = ticker_symbol
+    yfinance_data['RSI'] = calculate_rsi(yfinance_data)
+    yfinance_data['MACD'], yfinance_data['Signal_Line'], yfinance_data['MACD_Histogram'] = calculate_macd(yfinance_data)
     print("\n\nyfinance data to be used\n\n")
     print(pd.DataFrame(yfinance_data).head())
 
