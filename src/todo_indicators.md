@@ -1,12 +1,3 @@
-When building a trading model specifically for Bitcoin, there are several **Bitcoin-specific indicators** and general market indicators that can help enhance your model. Here’s a list of some key indicators to consider:
-
-### 1. **On-Chain Data Indicators**:
-   These are Bitcoin-specific metrics derived from blockchain data:
-
-   - **Hash Rate**: A measure of the computing power of the Bitcoin network. Higher hash rates often indicate a more secure network and can be associated with price trends.
-   - **Difficulty Ribbon**: Tracks the mining difficulty of Bitcoin over time. The compression and expansion of the difficulty ribbon can signal potential bottoms and tops.
-   - **Number of Active Addresses**: This measures the daily unique Bitcoin addresses that are active. An increase in activity can indicate growing demand or utility for the network.
-   - **Transaction Volume**: The total amount of Bitcoin being transferred across the network. Higher volumes can indicate increased interest and activity, potentially signaling price movements.
    - **MVRV Ratio (Market Value to Realized Value)**: The ratio between Bitcoin’s market value and its realized value. This helps identify if Bitcoin is overvalued or undervalued.
    - **Supply in Profit/Loss**: The percentage of Bitcoin in circulation that is currently in profit or loss. This can help gauge the overall sentiment of holders.
 
@@ -14,7 +5,7 @@ When building a trading model specifically for Bitcoin, there are several **Bitc
    These are useful for understanding the psychological aspects of Bitcoin traders:
 
    - **Crypto Fear and Greed Index**: A popular sentiment gauge that tracks market fear and greed based on factors like volatility, social media activity, and trading volume. Extreme values can indicate reversals.
-   - **Social Media Mentions/Sentiment**: Monitor platforms like Twitter, Reddit, or Google Trends for Bitcoin-related mentions and sentiment to gauge market sentiment.
+
    - **Exchange Inflows/Outflows**: Tracking the amount of Bitcoin being moved into or out of exchanges can give clues about investor intentions (e.g., large outflows may indicate accumulation and holding, while large inflows may suggest selling pressure).
 
 ### 3. **Technical Indicators**:

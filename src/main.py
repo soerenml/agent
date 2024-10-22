@@ -41,6 +41,10 @@ prompt = "src/prompts/financial_analyst.md"
 result_2 = finance_data_analyst(prompt, data, ASSET, llm)
 print(f"\n\n\n\n ======= Financial analyst ======= \n\n{result_2}\n\n\n\n")
 
+# ----------------- Analyze technical bitcoin data -----------------
+from scraper.bitcoin_tech import get_data
+bitcoin_data = get_data()
+
 # ----------------- Head analyst -----------------
 from agents import head_analyst
 prompt = "src/prompts/head_analyst.md"

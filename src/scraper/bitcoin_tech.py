@@ -1,6 +1,6 @@
 import pandas as pd
 import requests
-from datetime import datetime
+from functools import reduce
 
 def fetch_data(url: str, value_column_name: str) -> pd.DataFrame:
     """
@@ -39,6 +39,7 @@ def fetch_data(url: str, value_column_name: str) -> pd.DataFrame:
 
     # Convert the timestamp and rename the value column
     df['Timestamp'] = pd.to_datetime(df['x'], unit='s')
+    df['Timestamp'] = df['Timestamp'].dt.date
     df.drop(columns=['x'], inplace=True)
 
     df['9-day'] = df['y'].rolling(window=9).mean()
@@ -53,35 +54,31 @@ def fetch_data(url: str, value_column_name: str) -> pd.DataFrame:
 
     return df
 
+def get_data():
+    # Fetch hash rate data
+    hash_rate_df = fetch_data(
+        url="https://api.blockchain.info/charts/hash-rate?timespan=1year&format=json",
+        value_column_name='hash_rate'
+    )
 
-# Fetch hash rate data
-hash_rate_df = fetch_data(
-    url="https://api.blockchain.info/charts/hash-rate?timespan=1year&format=json",
-    value_column_name='Hash Rate'
-)
+    # Fetch difficulty ribbon data
+    difficulty_ribbon_df = fetch_data(
+        url="https://api.blockchain.info/charts/difficulty?timespan=1year&format=json",
+        value_column_name='difficulty_ribbon'
+    )
 
-# Fetch difficulty ribbon data
-difficulty_ribbon_df = fetch_data(
-    url="https://api.blockchain.info/charts/difficulty?timespan=1year&format=json",
-    value_column_name='Difficulty Ribbon'
-)
+    active_adresses_df = fetch_data(
+        url = "https://api.blockchain.info/charts/n-unique-addresses?timespan=1year&format=json",
+        value_column_name='active_addresses'
+    )
 
-active_adresses_df = fetch_data(
-    url = "https://api.blockchain.info/charts/n-unique-addresses?timespan=1year&format=json",
-    value_column_name='Active Addresses'
-)
+    transaction_volume_df = fetch_data(
+        url = "https://api.blockchain.info/charts/transactions-per-second?timespan=1year&format=json",
+        value_column_name='transaction_volume'
+    )
 
+    dfs = [hash_rate_df, difficulty_ribbon_df, active_adresses_df, transaction_volume_df]
+    merged_df = reduce(lambda left, right: pd.merge(left, right, on='Timestamp', how='outer'), dfs)
 
-
-
-
-
-
-
-
-
-# Display the results
-print(hash_rate_df.tail())
-print(difficulty_ribbon_df.head())
-print(active_adresses_df.head())
+    return merged_df
 
