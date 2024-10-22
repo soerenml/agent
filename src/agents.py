@@ -6,7 +6,7 @@ import pandas as pd
 import os
 
 
-def finance_data_analyst(prompt: str, data: pd.DataFrame, llm: ChatOpenAI):
+def finance_data_analyst(prompt: str, data: pd.DataFrame, asset: str, llm: ChatOpenAI):
     """
     Analyzes financial data using a prompt and a language model.
 
@@ -40,7 +40,7 @@ def finance_data_analyst(prompt: str, data: pd.DataFrame, llm: ChatOpenAI):
         | llm
         | StrOutputParser()
     )
-    return rag_chain.invoke({"data": data})
+    return rag_chain.invoke({"data": data, "asset": asset})
 
 
 def finance_news_analyst(prompt: str, all_headlines: list, llm: ChatOpenAI):

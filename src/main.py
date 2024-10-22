@@ -12,7 +12,7 @@ if ASSET == "bitcoin":
     TICKER_SYMBOL = "BTC-USD"
 
 from langchain_openai import ChatOpenAI
-llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model="gpt-4")
+llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model="gpt-4o")
 
 # ----------------- Scrape news headlines -----------------
 from scraper.googlenews import scrape
@@ -22,7 +22,7 @@ all_headlines = scrape(url="https://news.google.com/search?q=bitcoin&hl=en-US&gl
 from agents import finance_news_analyst
 prompt = "src/prompts/news.md"
 result_1 = finance_news_analyst(prompt, all_headlines, llm)
-print(result_1)
+print(f"\n\n\n\n ======= News analyst ======= \n\n{result_1}\n\n\n\n")
 
 # ----------------- Scrape financial data -----------------
 from scraper.yfinance import download_yfinance_data
@@ -38,14 +38,14 @@ plot_technical_indicators(data=data)
 # ----------------- Analyze financial data -----------------
 from agents import finance_data_analyst
 prompt = "src/prompts/financial_analyst.md"
-result_2 = finance_data_analyst(prompt, data, llm)
-print(result_2)
+result_2 = finance_data_analyst(prompt, data, ASSET, llm)
+print(f"\n\n\n\n ======= Financial analyst ======= \n\n{result_2}\n\n\n\n")
 
 # ----------------- Head analyst -----------------
 from agents import head_analyst
 prompt = "src/prompts/head_analyst.md"
 result_3 = head_analyst(prompt, result_1, result_2, llm)
-print(result_3)
+print(f"\n\n\n\n ======= Head analyst ======= \n\n{result_3}\n\n\n\n")
 
 report = f"report-{datetime.now():%Y-%m-%d}.md"
 save_path = os.path.join('reports', report)

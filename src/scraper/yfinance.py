@@ -91,7 +91,5 @@ def download_yfinance_data(
     yfinance_data['ASSET'] = asset
     yfinance_data['RSI'] = calculate_rsi(yfinance_data)
     yfinance_data['MACD'], yfinance_data['Signal_Line'], yfinance_data['MACD_Histogram'] = calculate_macd(yfinance_data)
-    print("\n\nyfinance data to be used\n\n")
-    print(pd.DataFrame(yfinance_data).head())
 
     return yfinance_data

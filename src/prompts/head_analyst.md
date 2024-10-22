@@ -1,7 +1,3 @@
-Here’s the updated prompt with the numerical evaluation section:
-
----
-
 ### Objective:
 Analyze and compare the financial performance of two assets as evaluated by Analysts A and B, providing a clear recommendation to buy, hold, or sell, including a numerical score.
 
@@ -49,7 +45,3 @@ Analyze and compare the financial performance of two assets as evaluated by Anal
    - Keep the analysis concise (1-2 pages).
    - Use bullet points or subheadings for clarity.
    - Include relevant charts or tables to support your findings.
-
----
-
-This version incorporates the numerical evaluation, making the recommendation more quantifiable and structured.
