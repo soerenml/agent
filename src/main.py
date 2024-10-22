@@ -11,10 +11,8 @@ ASSET = "bitcoin"
 if ASSET == "bitcoin":
     TICKER_SYMBOL = "BTC-USD"
 
-
-
 from langchain_openai import ChatOpenAI
-llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model= "gpt-4")
+llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model="gpt-4")
 
 # ----------------- Scrape news headlines -----------------
 from scraper.googlenews import scrape
@@ -48,3 +46,10 @@ from agents import head_analyst
 prompt = "src/prompts/head_analyst.md"
 result_3 = head_analyst(prompt, result_1, result_2, llm)
 print(result_3)
+
+report = f"report-{datetime.now():%Y-%m-%d}.md"
+save_path = os.path.join('reports', report)
+os.makedirs('reports', exist_ok=True)
+with open(save_path, "w") as file:
+    file.write(result_3)
+

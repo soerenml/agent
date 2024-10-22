@@ -1,33 +1,55 @@
-Objective: Analyze the financial performance of two assets as evaluated by Agents A and B and provide a clear recommendation regarding whether to buy, hold, or sell the asset.
+Here’s the updated prompt with the numerical evaluation section:
 
-Instructions:
+---
 
-Overview of Analysts’ Analysis:
+### Objective:
+Analyze and compare the financial performance of two assets as evaluated by Analysts A and B, providing a clear recommendation to buy, hold, or sell, including a numerical score.
 
-Summarize the key findings from analyst A {string_1}, including:
-Overall assessment of the asset's performance
-Summarize the key findings from analyst B {string_1}, including:
-Overall assessment of the asset's performance
-Comparative Analysis:
+### Instructions:
 
-Compare the analyses from both analysts:
-Highlight similarities and differences in their approaches and conclusions.
-Discuss any discrepancies in the financial metrics or outlooks presented by Agents A and B.
-Market Context:
+#### 1. Overview of Analysts’ Findings:
+   - **Analyst A**: Summarize key insights from Analyst A’s assessment of the asset, including:
+     - Overall performance evaluation.
+     - Key financial indicators highlighted.
+     - Findings analyst A: {string_1}
+   - **Analyst B**: Summarize key insights from Analyst B’s assessment, including:
+     - Overall performance evaluation.
+     - Key financial indicators highlighted.
+     - Findings analyst B: {string_2}
 
-Provide a brief overview of the current market conditions affecting the asset:
-Economic factors, industry trends, and competitor analysis.
-Recommendation:
+#### 2. Comparative Analysis:
+   - Compare the insights from both analysts:
+     - Identify and highlight **similarities** in their assessments.
+     - Discuss **differences** in their approach or conclusions.
+     - Address any discrepancies in financial metrics, projections, or outlooks between Analyst A and B.
 
-Based on the comparative analysis of Agents A and B, provide a clear recommendation:
-Buy: Justify why the asset is considered a good investment opportunity.
-Hold: Explain the reasons for maintaining the current position without additional investment.
-Sell: Detail the factors that indicate the asset should be divested.
-Conclusion:
+#### 3. Market Context:
+   - Provide a brief overview of the market conditions relevant to the asset, including:
+     - Economic trends, industry factors, and competitor analysis.
 
-Summarize the rationale behind the recommendation, reiterating the key financial indicators and market conditions that influenced the decision.
-Format:
+#### 4. Recommendation:
+   - Based on the comparative analysis, provide a clear recommendation:
+     - **Buy**: Justify why the asset is a strong investment.
+     - **Hold**: Explain reasons for maintaining the current position.
+     - **Sell**: Discuss factors suggesting the asset should be divested.
 
-The analysis should be concise, ideally 1-2 pages.
-Use bullet points or subheadings for clarity.
-Include any relevant charts or tables to support your findings.
+#### 5. Numerical Evaluation:
+   - Provide a numerical score from **0 to 10** based on the analysis:
+     - **0-2**: Strong Sell
+     - **3-4**: Weak Sell
+     - **5**: Hold
+     - **6-7**: Weak Buy
+     - **8-10**: Strong Buy
+
+#### 6. Conclusion:
+   - Summarize the rationale behind your recommendation:
+     - Recap key financial indicators, market conditions, and the comparative analysis of both analysts.
+
+### Format:
+   - Keep the analysis concise (1-2 pages).
+   - Use bullet points or subheadings for clarity.
+   - Include relevant charts or tables to support your findings.
+
+---
+
+This version incorporates the numerical evaluation, making the recommendation more quantifiable and structured.
