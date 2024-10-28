@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 load_dotenv()
 
 # ----------------- PARAMETERS -----------------
-TEST_RUN = True
+TEST_RUN = False
 ASSET = "bitcoin"
 if ASSET == "bitcoin":
     TICKER_SYMBOL = "BTC-USD"
@@ -51,8 +51,14 @@ plot_technical_indicators(data=data, data_tech=data_tech)
 # ----------------- Analyze financial data -----------------
 from agents import finance_data_analyst
 prompt = "src/prompts/financial_analyst.md"
-result_2 = finance_data_analyst(prompt, data, ASSET, llm)
+result_2 = finance_data_analyst(prompt=prompt, data=data, asset=ASSET, llm=llm)
 print(f"\n\n\n\n ======= Financial analyst ======= \n\n{result_2}\n\n\n\n")
+
+# ----------------- Analyze technical data -----------------
+from agents import technical_data_analyst
+prompt = "src/prompts/technical_analyst.md"
+result_3 = technical_data_analyst(prompt=prompt, data=data_tech, asset=ASSET, llm=llm)
+print(f"\n\n\n\n ======= Technical analyst ======= \n\n{result_3}\n\n\n\n")
 
 # ----------------- Analyze technical bitcoin data -----------------
 from scraper.bitcoin_tech import get_data
@@ -61,8 +67,8 @@ bitcoin_data = get_data()
 # ----------------- Head analyst -----------------
 from agents import head_analyst
 prompt = "src/prompts/head_analyst.md"
-result_3 = head_analyst(prompt, result_1, result_2, llm)
-print(f"\n\n\n\n ======= Head analyst ======= \n\n{result_3}\n\n\n\n")
+result_4 = head_analyst(prompt=prompt, result_1=result_1, result_2=result_3, result_3=result_3, llm=llm)
+print(f"\n\n\n\n ======= Head analyst ======= \n\n{result_4}\n\n\n\n")
 
 if TEST_RUN:
     pass

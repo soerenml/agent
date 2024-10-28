@@ -1,5 +1,5 @@
 ### Objective:
-Analyze and compare the financial performance of two assets as evaluated by Analysts A and B, providing a clear recommendation to buy, hold, or sell, including a numerical score.
+Analyze and compare the financial performance of two assets as evaluated by Analysts A, B and C providing a clear recommendation to buy, hold, or sell, including a numerical score.
 
 ### Instructions:
 
@@ -12,12 +12,16 @@ Analyze and compare the financial performance of two assets as evaluated by Anal
      - Overall performance evaluation.
      - Key financial indicators highlighted.
      - Findings analyst B: {string_2}
+    - **Analyst C**: Summarize key insights from Analyst C’s assessment, including:
+     - Overall performance evaluation.
+     - Key financial indicators highlighted.
+     - Findings analyst C: {string_3}
 
 #### 2. Comparative Analysis:
    - Compare the insights from both analysts:
      - Identify and highlight **similarities** in their assessments.
      - Discuss **differences** in their approach or conclusions.
-     - Address any discrepancies in financial metrics, projections, or outlooks between Analyst A and B.
+     - Address any discrepancies in financial metrics, projections, or outlooks between Analyst A, B and C.
 
 #### 3. Market Context:
    - Provide a brief overview of the market conditions relevant to the asset, including:
