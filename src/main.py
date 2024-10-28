@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 load_dotenv()
 
 # ----------------- PARAMETERS -----------------
-TEST_RUN = False
+TEST_RUN = True
 ASSET = "bitcoin"
 if ASSET == "bitcoin":
     TICKER_SYMBOL = "BTC-USD"
@@ -40,9 +40,13 @@ start_date = end_date - timedelta(days=365)
 data = download_yfinance_data(ticker_symbol=TICKER_SYMBOL, start_date=start_date,
                               end_date=end_date, asset=ASSET, print_data=True)
 
+# ----------------- Scrape technical data -----------------
+from scraper.bitcoin_tech import get_data
+data_tech = get_data(print_data=True)
+
 # ----------------- Plot financial data -----------------
 from helper.plotter import plot_technical_indicators
-plot_technical_indicators(data=data)
+plot_technical_indicators(data=data, data_tech=data_tech)
 
 # ----------------- Analyze financial data -----------------
 from agents import finance_data_analyst
