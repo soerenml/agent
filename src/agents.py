@@ -1,9 +1,45 @@
 from langchain_core.prompts.prompt import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import RunnablePassthrough
 from langchain_openai import ChatOpenAI
 import pandas as pd
 import os
+
+
+def load_prompt_template(prompt_path: str) -> PromptTemplate:
+    """
+    Load a prompt template from a file path.
+
+    Args:
+        prompt_path (str): Path to the prompt file.
+
+    Returns:
+        PromptTemplate: The loaded prompt template.
+
+    Raises:
+        FileNotFoundError: If the prompt file does not exist.
+    """
+    if not os.path.isfile(prompt_path):
+        raise FileNotFoundError(f"Prompt file '{prompt_path}' does not exist.")
+
+    with open(prompt_path, 'r', encoding='utf-8') as file:
+        markdown_string = file.read()
+    return PromptTemplate.from_template(markdown_string)
+
+
+def invoke_chain(prompt_template: PromptTemplate, llm: ChatOpenAI, inputs: dict):
+    """
+    Invoke the RAG chain with the given inputs.
+
+    Args:
+        prompt_template (PromptTemplate): The prompt template for the chain.
+        llm (ChatOpenAI): The language model for the chain.
+        inputs (dict): The input data for invocation.
+
+    Returns:
+        The result of the chain invocation.
+    """
+    rag_chain = prompt_template | llm | StrOutputParser()
+    return rag_chain.invoke(inputs)
 
 
 def finance_data_analyst(prompt: str, data: pd.DataFrame, asset: str, llm: ChatOpenAI):
@@ -13,34 +49,17 @@ def finance_data_analyst(prompt: str, data: pd.DataFrame, asset: str, llm: ChatO
     Args:
         prompt (str): The path to the file containing the prompt for analysis.
         data (pandas.DataFrame): The financial data to be analyzed.
+        asset (str): The asset to be analyzed.
         llm (ChatOpenAI): The language model used for analysis.
 
     Returns:
         str: The result of the analysis.
-
-    Raises:
-        ValueError: If the provided data is not a pandas DataFrame.
-        FileNotFoundError: If the prompt file does not exist.
-
     """
-    # Validate input parameters
     if not isinstance(data, pd.DataFrame):
         raise ValueError("Provided data must be a pandas DataFrame.")
 
-    if not os.path.isfile(prompt):
-        raise FileNotFoundError(f"Prompt file '{prompt}' does not exist.")
-
-    with open(prompt, 'r', encoding='utf-8') as file:
-        markdown_string = file.read()
-
-    prompt_custom = PromptTemplate.from_template(markdown_string)
-
-    rag_chain = (
-        prompt_custom
-        | llm
-        | StrOutputParser()
-    )
-    return rag_chain.invoke({"data": data, "asset": asset})
+    prompt_template = load_prompt_template(prompt)
+    return invoke_chain(prompt_template, llm, {"data": data, "asset": asset})
 
 
 def finance_news_analyst(prompt: str, all_headlines: list, llm: ChatOpenAI):
@@ -54,29 +73,12 @@ def finance_news_analyst(prompt: str, all_headlines: list, llm: ChatOpenAI):
 
     Returns:
         dict: The result of the analysis.
-
-    Raises:
-        ValueError: If the provided data is not a string.
-        FileNotFoundError: If the file specified by the `prompt` parameter does not exist.
     """
-    # Validate input parameters
-    if not isinstance(prompt, str):
-        raise ValueError("Provided data must be a string.")
+    if not isinstance(all_headlines, list):
+        raise ValueError("Provided headlines must be a list.")
 
-    if not os.path.isfile(prompt):
-        raise FileNotFoundError(f"Prompt file '{prompt}' does not exist.")
-
-    with open(prompt, 'r', encoding='utf-8') as file:
-        markdown_string = file.read()
-
-    prompt_custom = PromptTemplate.from_template(markdown_string)
-
-    rag_chain = (
-        prompt_custom
-        | llm
-        | StrOutputParser()
-    )
-    return rag_chain.invoke({"headlines": all_headlines})
+    prompt_template = load_prompt_template(prompt)
+    return invoke_chain(prompt_template, llm, {"headlines": all_headlines})
 
 
 def head_analyst(prompt: str, result_1: str, result_2: str, llm: ChatOpenAI):
@@ -89,30 +91,28 @@ def head_analyst(prompt: str, result_1: str, result_2: str, llm: ChatOpenAI):
         result_2 (str): The second result string.
         llm (ChatOpenAI): The ChatOpenAI object used for language model interaction.
 
-    Raises:
-        ValueError: If the provided prompt is not a string.
-        FileNotFoundError: If the prompt file does not exist.
-
     Returns:
         dict: The final result of the analysis.
     """
+    prompt_template = load_prompt_template(prompt)
+    return invoke_chain(prompt_template, llm, {"string_1": result_1, "string_2": result_2})
 
-    # Validate input parameters
-    if not isinstance(prompt, str):
-        raise ValueError("Provided data must be a string.")
 
-    if not os.path.isfile(prompt):
-        raise FileNotFoundError(f"Prompt file '{prompt}' does not exist.")
-    with open(prompt, 'r', encoding='utf-8') as file:
-        markdown_string = file.read()
+def technical_data_analyst(prompt: str, data: pd.DataFrame, asset: str, llm: ChatOpenAI):
+    """
+    Analyzes technical financial data using a prompt and a language model.
 
-    prompt_custom = PromptTemplate.from_template(markdown_string)
+    Args:
+        prompt (str): The path to the file containing the prompt for analysis.
+        data (pandas.DataFrame): The technical financial data to be analyzed.
+        asset (str): The asset to be analyzed.
+        llm (ChatOpenAI): The language model used for analysis.
 
-    rag_chain = (
-        prompt_custom
-        | llm
-        | StrOutputParser()
-    )
-    final_result = rag_chain.invoke({"string_1": result_1, "string_2": result_2})
+    Returns:
+        str: The result of the analysis.
+    """
+    if not isinstance(data, pd.DataFrame):
+        raise ValueError("Provided data must be a pandas DataFrame.")
 
-    return final_result
+    prompt_template = load_prompt_template(prompt)
+    return invoke_chain(prompt_template, llm, {"data": data, "asset": asset})
