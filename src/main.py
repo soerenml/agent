@@ -21,8 +21,6 @@ else:
     print("\n\n\nTHIS IS A PRODUCTION RUN!\n\n\n")
     llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model="gpt-4o")
 
-
-
 # ----------------- Scrape news headlines -----------------
 from scraper.googlenews import scrape
 all_headlines = scrape(url="https://news.google.com/search?q=bitcoin&hl=en-US&gl=US&ceid=US%3Aen")
