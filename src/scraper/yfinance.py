@@ -72,7 +72,8 @@ def download_yfinance_data(
         ticker_symbol: str,
         start_date: datetime,
         asset: str,
-        end_date: datetime) -> pd.DataFrame:
+        end_date: datetime,
+        print_data: bool) -> pd.DataFrame:
     """
     Downloads historical stock data for a given ticker symbol from Yahoo Finance.
 
@@ -80,6 +81,7 @@ def download_yfinance_data(
         ticker_symbol (str): The ticker symbol of the stock.
         start_date (datetime): The start date of the data to download.
         end_date (datetime): The end date of the data to download.
+        print_data (bool): Whether to print the downloaded data.
 
     Returns:
         pd.DataFrame: A DataFrame containing the downloaded stock data.
@@ -89,7 +91,12 @@ def download_yfinance_data(
     yfinance_data = yf.download(ticker_symbol, start=start_date, end=end_date, interval='1d')
     yfinance_data['Ticker'] = ticker_symbol
     yfinance_data['ASSET'] = asset
-    yfinance_data['RSI'] = calculate_rsi(yfinance_data)
+    yfinance_data['relative_strength_index_RSI'] = calculate_rsi(yfinance_data)
     yfinance_data['MACD'], yfinance_data['Signal_Line'], yfinance_data['MACD_Histogram'] = calculate_macd(yfinance_data)
+
+    if print_data:
+        print(yfinance_data.head())
+    else:
+        pass
 
     return yfinance_data

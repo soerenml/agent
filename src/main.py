@@ -29,7 +29,7 @@ from scraper.yfinance import download_yfinance_data
 end_date = datetime.now()
 start_date = end_date - timedelta(days=365)
 data = download_yfinance_data(ticker_symbol=TICKER_SYMBOL, start_date=start_date,
-                              end_date=end_date, asset=ASSET)
+                              end_date=end_date, asset=ASSET, print_data=True)
 
 # ----------------- Plot financial data -----------------
 from helper.plotter import plot_technical_indicators

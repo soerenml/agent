@@ -25,7 +25,8 @@ Follow these steps to create your analysis, including a numerical evaluation fro
 
 ### Technical Indicators
 - **Moving Averages (MA)**: Compare the 50-day and 200-day moving averages to assess momentum.
-- **Relative strength Index**: RSI above 70 suggests overbought, below 30 suggests oversold.
+- **Relative strength Index**: RSI above 70 suggests overbought, below 30 suggests oversold. relative_strength_index_RSI is the variable for the RSI in the data. Use this to conduct your analysis.
+
 - **MACD**: Moving Average Convergence Divergence (MACD) to assess momentum changes and potential trend reversals.
   - MACD Line = (12-day EMA) - (26-day EMA)
   - Signal Line = 9-day EMA of the MACD Line
