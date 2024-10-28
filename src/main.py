@@ -7,12 +7,21 @@ from datetime import datetime, timedelta
 load_dotenv()
 
 # ----------------- PARAMETERS -----------------
+TEST_RUN = False
 ASSET = "bitcoin"
 if ASSET == "bitcoin":
     TICKER_SYMBOL = "BTC-USD"
 
 from langchain_openai import ChatOpenAI
-llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model="gpt-4o")
+
+if TEST_RUN:
+    print("\n\n\nTHIS IS A TEST RUN!\n\n\n")
+    llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model="gpt-3.5-turbo")
+else:
+    print("\n\n\nTHIS IS A PRODUCTION RUN!\n\n\n")
+    llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model="gpt-4o")
+
+
 
 # ----------------- Scrape news headlines -----------------
 from scraper.googlenews import scrape
@@ -51,9 +60,12 @@ prompt = "src/prompts/head_analyst.md"
 result_3 = head_analyst(prompt, result_1, result_2, llm)
 print(f"\n\n\n\n ======= Head analyst ======= \n\n{result_3}\n\n\n\n")
 
-report = f"report-{datetime.now():%Y-%m-%d}.md"
-save_path = os.path.join('reports', report)
-os.makedirs('reports', exist_ok=True)
-with open(save_path, "w") as file:
-    file.write(result_3)
+if TEST_RUN:
+    pass
+else:
+    report = f"report-{datetime.now():%Y-%m-%d}.md"
+    save_path = os.path.join('reports', report)
+    os.makedirs('reports', exist_ok=True)
+    with open(save_path, "w") as file:
+        file.write(result_3)
 

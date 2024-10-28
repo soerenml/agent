@@ -13,10 +13,10 @@ def plot_technical_indicators(data: pd.DataFrame) -> None:
     data['50_MA'] = data['Close'].rolling(window=50).mean()
 
     # Creating the plot
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(12, 10))
 
     # Plotting close price with 20-day and 50-day moving averages
-    plt.subplot(2, 1, 1)
+    plt.subplot(3, 1, 1)
     plt.plot(data.index, data['Close'], label='Close Price', marker='.')
     plt.plot(data.index, data['20_MA'], label='20 Day MA', linestyle='--', color='orange')
     plt.plot(data.index, data['50_MA'], label='50 Day MA', linestyle='--', color='green')
@@ -26,12 +26,22 @@ def plot_technical_indicators(data: pd.DataFrame) -> None:
     plt.legend()
 
     # Plotting MACD and MACD Histogram
-    plt.subplot(2, 1, 2)
+    plt.subplot(3, 1, 2)
     plt.plot(data.index, data['MACD'], label='MACD', marker='.')
     plt.plot(data.index, data['Signal_Line'], label='Signal Line', marker='.', linestyle='--')
     plt.bar(data.index, data['MACD_Histogram'], label='MACD Histogram', alpha=0.5)
     plt.title('MACD Analysis')
     plt.ylabel('MACD Value')
+    plt.grid(True)
+    plt.legend()
+
+    # Plotting RSI
+    plt.subplot(3, 1, 3)
+    plt.plot(data.index, data['relative_strength_index_RSI'], label='RSI', marker='.')
+    plt.axhline(70, color='red', linestyle='--', linewidth=0.8, label='Overbought (70)')
+    plt.axhline(30, color='green', linestyle='--', linewidth=0.8, label='Oversold (30)')
+    plt.title('RSI Analysis')
+    plt.ylabel('RSI Value')
     plt.grid(True)
     plt.legend()
 
