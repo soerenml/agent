@@ -18,7 +18,7 @@ if TEST_RUN:
     print("\n\n\nTHIS IS A TEST RUN!\n\n\n")
     llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model="gpt-3.5-turbo")
 else:
-    print("\n\n\nTHIS IS A PRODUCTION RUN!\n\n\n")
+    print(f"\n\n\nTHIS IS A PRODUCTION RUN - {datetime.now():%Y-%m-%d}\n\n\n")
     llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model="gpt-4o")
 
 # ----------------- Scrape news headlines -----------------
