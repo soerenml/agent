@@ -28,8 +28,8 @@ all_headlines = scrape(url="https://news.google.com/search?q=bitcoin&hl=en-US&gl
 # ----------------- Analyze content -----------------
 from agents import finance_news_analyst
 prompt = "src/prompts/news.md"
-result_1 = finance_news_analyst(prompt, all_headlines, llm)
-print(f"\n\n\n\n ======= News analyst ======= \n\n{result_1}\n\n\n\n")
+output_news_analyst = finance_news_analyst(prompt, all_headlines, llm)
+print(f"\n\n\n\n ======= News analyst ======= \n\n{output_news_analyst}\n\n\n\n")
 
 # ----------------- Scrape financial data -----------------
 from scraper.yfinance import download_yfinance_data
@@ -49,14 +49,14 @@ plot_technical_indicators(data=data, data_tech=data_tech)
 # ----------------- Analyze financial data -----------------
 from agents import finance_data_analyst
 prompt = "src/prompts/financial_analyst.md"
-result_2 = finance_data_analyst(prompt=prompt, data=data, asset=ASSET, llm=llm)
-print(f"\n\n\n\n ======= Financial analyst ======= \n\n{result_2}\n\n\n\n")
+output_finance_analyst = finance_data_analyst(prompt=prompt, data=data, asset=ASSET, llm=llm)
+print(f"\n\n\n\n ======= Financial analyst ======= \n\n{output_finance_analyst}\n\n\n\n")
 
 # ----------------- Analyze technical data -----------------
 from agents import technical_data_analyst
 prompt = "src/prompts/technical_analyst.md"
-result_3 = technical_data_analyst(prompt=prompt, data=data_tech, asset=ASSET, llm=llm)
-print(f"\n\n\n\n ======= Technical analyst ======= \n\n{result_3}\n\n\n\n")
+output_technical_analyst = technical_data_analyst(prompt=prompt, data=data_tech, asset=ASSET, llm=llm)
+print(f"\n\n\n\n ======= Technical analyst ======= \n\n{output_technical_analyst}\n\n\n\n")
 
 # ----------------- Analyze technical bitcoin data -----------------
 from scraper.bitcoin_tech import get_data
@@ -65,8 +65,13 @@ bitcoin_data = get_data()
 # ----------------- Head analyst -----------------
 from agents import head_analyst
 prompt = "src/prompts/head_analyst.md"
-result_4 = head_analyst(prompt=prompt, result_1=result_1, result_2=result_3, result_3=result_3, llm=llm)
-print(f"\n\n\n\n ======= Head analyst ======= \n\n{result_4}\n\n\n\n")
+output_head_analyst = head_analyst(prompt=prompt,
+                        result_1=output_news_analyst,
+                        result_2=output_finance_analyst,
+                        result_3=output_technical_analyst,
+                        llm=llm
+                        )
+print(f"\n\n\n\n ======= Head analyst ======= \n\n{output_head_analyst}\n\n\n\n")
 
 if TEST_RUN:
     pass
@@ -75,5 +80,5 @@ else:
     save_path = os.path.join('reports', report)
     os.makedirs('reports', exist_ok=True)
     with open(save_path, "w") as file:
-        file.write(result_3)
+        file.write(output_head_analyst)
 
