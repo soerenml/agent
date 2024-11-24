@@ -16,7 +16,6 @@ args = parser.parse_args()
 def run_main(args):
     # ----------------- PARAMETERS -----------------
     TEST_RUN = args.test_run
-    print(TEST_RUN)
 
     ASSET = "bitcoin"
     if ASSET == "bitcoin":
