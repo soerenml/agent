@@ -9,7 +9,7 @@ import argparse
 
 parser = argparse.ArgumentParser(description="Bitcoin trader")
 
-parser.add_argument("--test_run", "-n", type=str, default="False", help="Run in test or production mode")
+parser.add_argument("--test_run", "-n", type=str, default="True", help="Run in test or production mode")
 args = parser.parse_args()
 
 
@@ -36,7 +36,7 @@ def run_main(args):
 
     # ----------------- Analyze content -----------------
     from agents import finance_news_analyst
-    prompt = "src/prompts/news.md"
+    prompt = "src/prompts/news_analyst.md"
     output_news_analyst = finance_news_analyst(prompt, all_headlines, llm)
     print(f"\n\n\n\n ======= News analyst ======= \n\n{output_news_analyst}\n\n\n\n")
 
