@@ -9,7 +9,7 @@ import argparse
 
 parser = argparse.ArgumentParser(description="Bitcoin trader")
 
-parser.add_argument("--test_run", "-n", type=str, default="True", help="Run in test or production mode")
+parser.add_argument("--test_run", "-n", type=str, default="False", help="Run in test or production mode")
 args = parser.parse_args()
 
 
@@ -25,7 +25,7 @@ def run_main(args):
 
     if TEST_RUN=="True":
         print("\n\n\nTHIS IS A TEST RUN!\n\n\n")
-        llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model="gpt-3.5-turbo")
+        llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model="gpt-4-turbo")
     else:
         print(f"\n\n\nTHIS IS A PRODUCTION RUN - {datetime.now():%Y-%m-%d}\n\n\n")
         llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model="gpt-4o")
