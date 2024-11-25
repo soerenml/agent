@@ -1,5 +1,6 @@
 import pandas as pd
 import requests
+import numpy as np
 from functools import reduce
 
 def fetch_data(url: str, value_column_name: str) -> pd.DataFrame:
@@ -54,6 +55,8 @@ def fetch_data(url: str, value_column_name: str) -> pd.DataFrame:
 
     return df
 
+
+
 def get_data(print_data: bool = False) -> pd.DataFrame:
     # Fetch hash rate data
     hash_rate_df = fetch_data(
@@ -80,10 +83,10 @@ def get_data(print_data: bool = False) -> pd.DataFrame:
     dfs = [hash_rate_df, difficulty_ribbon_df, active_adresses_df, transaction_volume_df]
     merged_df = reduce(lambda left, right: pd.merge(left, right, on='Timestamp', how='outer'), dfs)
 
+
     if print_data:
         print(merged_df.head())
     else:
         pass
 
     return merged_df
-
