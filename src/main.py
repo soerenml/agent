@@ -25,10 +25,10 @@ def run_main(args):
 
     if TEST_RUN=="True":
         print("\n\n\nTHIS IS A TEST RUN!\n\n\n")
-        llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model="gpt-4-turbo")
+        llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model="gpt-4o")
     else:
         print(f"\n\n\nTHIS IS A PRODUCTION RUN - {datetime.now():%Y-%m-%d}\n\n\n")
-        llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model="gpt-4o")
+        llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model="gpt-4-turbo")
 
     # ----------------- Scrape news headlines -----------------
     from scraper.googlenews import scrape
@@ -82,11 +82,6 @@ def run_main(args):
                             )
     print(f"\n\n\n\n ======= Head analyst ======= \n\n{output_head_analyst}\n\n\n\n")
 
-    # ----------------- Distill results -----------------
-    from agents import agent_format_results
-    prompt = "src/prompts/format_results.md"
-    output_distilled_results = agent_format_results(prompt=prompt, input=output_finance_analyst, llm=llm)
-    print(f"\n\n\n\n ======= Distilled results ======= \n\n{output_distilled_results}\n\n\n\n")
 
     # ----------------- Save report -----------------
 

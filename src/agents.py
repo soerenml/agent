@@ -118,12 +118,3 @@ def technical_data_analyst(prompt: str, data: pd.DataFrame, asset: str, llm: Cha
 
     prompt_template = load_prompt_template(prompt)
     return invoke_chain(prompt_template, llm, {"data": data, "asset": asset})
-
-# Other agents
-
-def agent_format_results(prompt: str, input: str, llm: ChatOpenAI):
-    if not isinstance(input, str):
-        raise ValueError("Provided data must be a str.")
-
-    prompt_template = load_prompt_template(prompt)
-    return invoke_chain(prompt_template, llm, {"input": input})
