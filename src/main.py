@@ -24,11 +24,13 @@ def run_main(args):
     from langchain_openai import ChatOpenAI
 
     if TEST_RUN=="True":
-        print("\n\n\nTHIS IS A TEST RUN!\n\n\n")
-        llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model="gpt-4o")
+        model = "gpt-4o"
+        print(f"\n\n\nTHIS IS A TEST RUN! - {model}\n\n\n")
+        llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model=model)
     else:
-        print(f"\n\n\nTHIS IS A PRODUCTION RUN - {datetime.now():%Y-%m-%d}\n\n\n")
-        llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model="gpt-4-turbo")
+        model = "gpt-4-turbo"
+        print(f"\n\n\nTHIS IS A PRODUCTION RUN - {datetime.now():%Y-%m-%d} - {model}\n\n\n")
+        llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model=model)
 
     # ----------------- Scrape news headlines -----------------
     from scraper.googlenews import scrape
@@ -73,13 +75,15 @@ def run_main(args):
 
     # ----------------- Head analyst -----------------
     from agents import head_analyst
+    date_time = datetime.now().strftime('%Y-%m-%d %H')
     prompt = "src/prompts/head_analyst.md"
     output_head_analyst = head_analyst(prompt=prompt,
                             result_1=output_news_analyst,
                             result_2=output_finance_analyst,
                             result_3=output_technical_analyst,
-                            llm=llm
-                            )
+                            llm=llm,
+                            date=date_time)
+
     print(f"\n\n\n\n ======= Head analyst ======= \n\n{output_head_analyst}\n\n\n\n")
 
 

@@ -3,6 +3,8 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_openai import ChatOpenAI
 import pandas as pd
 import os
+from datetime import datetime
+
 
 # Helper functions
 
@@ -83,7 +85,7 @@ def finance_news_analyst(prompt: str, all_headlines: list, llm: ChatOpenAI):
     return invoke_chain(prompt_template, llm, {"headlines": all_headlines})
 
 
-def head_analyst(prompt: str, result_1: str, result_2: str, result_3: str, llm: ChatOpenAI):
+def head_analyst(prompt: str, result_1: str, result_2: str, result_3: str, llm: ChatOpenAI, date: datetime):
     """
     Perform analysis using the provided prompt, result_1, result_2, and llm.
 
@@ -97,7 +99,7 @@ def head_analyst(prompt: str, result_1: str, result_2: str, result_3: str, llm: 
         dict: The final result of the analysis.
     """
     prompt_template = load_prompt_template(prompt)
-    return invoke_chain(prompt_template, llm, {"string_1": result_1, "string_2": result_2, "string_3": result_3})
+    return invoke_chain(prompt_template, llm, {"string_1": result_1, "string_2": result_2, "string_3": result_3, "date": date})
 
 
 def technical_data_analyst(prompt: str, data: pd.DataFrame, asset: str, llm: ChatOpenAI):

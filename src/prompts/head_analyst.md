@@ -46,5 +46,6 @@ Analyze and compare the financial performance of two assets as evaluated by Anal
      - Recap key financial indicators, market conditions, and the comparative analysis of both analysts.
 
 ### Format:
+   - Add the current date: {date} on top
    - Keep the analysis concise.
    - Use bullet points or subheadings for clarity.
