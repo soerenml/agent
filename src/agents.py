@@ -85,21 +85,55 @@ def finance_news_analyst(prompt: str, all_headlines: list, llm: ChatOpenAI):
     return invoke_chain(prompt_template, llm, {"headlines": all_headlines})
 
 
-def head_analyst(prompt: str, result_1: str, result_2: str, result_3: str, llm: ChatOpenAI, date: datetime):
+def head_analyst(
+    prompt: str,
+    result_1: str,
+    result_2: str,
+    result_3: str,
+    llm: ChatOpenAI,
+    date: datetime,
+    historical_data: str,
+    print_option: bool = False
+):
     """
-    Perform analysis using the provided prompt, result_1, result_2, and llm.
+    Perform analysis using the provided prompt, results, and LLM.
 
     Args:
         prompt (str): The path to the prompt file or the prompt string itself.
         result_1 (str): The first result string.
         result_2 (str): The second result string.
+        result_3 (str): The third result string.
         llm (ChatOpenAI): The ChatOpenAI object used for language model interaction.
+        date (datetime): The current date to include in the analysis.
+        historical_data (str): Historical data for analysis.
 
     Returns:
         dict: The final result of the analysis.
     """
+    inputs = {
+                "string_1": result_1,
+                "string_2": result_2,
+                "string_3": result_3,
+                "date": date,
+                "historical_data": historical_data
+            }
+
+
+    # Load the prompt template
     prompt_template = load_prompt_template(prompt)
-    return invoke_chain(prompt_template, llm, {"string_1": result_1, "string_2": result_2, "string_3": result_3, "date": date})
+
+    if print_option:
+        rendered_prompt = prompt_template.format(**inputs)
+        print(rendered_prompt)
+    else:
+        pass
+
+    # Invoke the LLM with the prompt and inputs
+    return invoke_chain(
+        prompt_template,
+        llm,
+        inputs
+    )
 
 
 def technical_data_analyst(prompt: str, data: pd.DataFrame, asset: str, llm: ChatOpenAI):
