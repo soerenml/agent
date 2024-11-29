@@ -124,7 +124,9 @@ def head_analyst(
 
     if print_option:
         rendered_prompt = prompt_template.format(**inputs)
+        print("============================= Prompt [start] =============================")
         print(rendered_prompt)
+        print("============================= Prompt [end] =============================")
     else:
         pass
 

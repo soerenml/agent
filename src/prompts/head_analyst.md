@@ -1,9 +1,9 @@
-### Objective:
+# Objective:
 Conduct a comprehensive analysis of two assets as evaluated by Analysts A, B, and C. Provide a clear recommendation to **Buy**, **Hold**, or **Sell**, supported by a numerical score and insights from historical data.
 
 ---
 
-### Instructions:
+# Instructions:
 
 #### 1. Overview of Analysts’ Findings:
    - **Analyst A**: Summarize key insights from Analyst A’s evaluation, including:
@@ -32,7 +32,7 @@ Conduct a comprehensive analysis of two assets as evaluated by Analysts A, B, an
      - Current sentiment and external influences.
 
 #### 4. Historical Analysis:
-   - Compare current insights with past recommendations and performance data: {historical_data}
+   - Compare current insights with past recommendations and performance data: (start historical data) {historical_data} (end historical data)
      - Evaluate the accuracy of prior forecasts by Analysts A, B, and C.
      - Identify patterns or biases in their historical predictions.
      - Discuss how past trends align with the current evaluation.
