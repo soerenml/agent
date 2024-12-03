@@ -94,7 +94,7 @@ def run_main(args):
         llm=llm,
         date=date_time,
         historical_data=historical_data,
-        print_option=True
+        print_option=False
     )
 
     print(f"\n\n\n\n ======= Head analyst ======= \n\n{output_head_analyst}\n\n\n\n")
