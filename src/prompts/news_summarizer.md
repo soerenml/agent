@@ -11,21 +11,22 @@ Determine whether Bitcoin is a suitable long-term investment based on your deep 
 ### **Instructions:**
 Provide your response in the following JSON format:
 
-'''
-{
-  "Key_Insights": "A concise summary of the main ideas and critical points from the provided headlines.",
-  "Financial_Health": "Analysis of Bitcoin's current financial performance based on trends or data inferred from the headlines.",
-  "Market_and_Industry_Trends": "Evaluation of how developments in the tech and cryptocurrency sectors are influencing Bitcoin's position and potential.",
-  "Strategic_Developments": "Summary of significant initiatives or advancements related to Bitcoin.",
-  "Risks_and_Challenges": "Identification of potential threats or uncertainties affecting Bitcoin's long-term performance.",
-  "Growth_and_Sustainability_Potential": "Analysis of Bitcoin’s potential for future growth and ability to sustain value over time.",
-  "Recommendation": {
+### Required JSON Format:
+{{
+  "Key_Insights": "Summarize the main ideas and critical points from the provided headlines.",
+  "Financial_Health": "Provide an analysis of Bitcoin's current financial performance based on trends from the headlines.",
+  "Market_and_Industry_Trends": "Evaluate how developments in the tech and cryptocurrency sectors influence Bitcoin's position.",
+  "Strategic_Developments": "Summarize significant initiatives or advancements related to Bitcoin.",
+  "Risks_and_Challenges": "Identify potential threats or uncertainties affecting Bitcoin's long-term performance.",
+  "Growth_and_Sustainability_Potential": "Assess Bitcoin’s future growth potential and sustainability.",
+  "Recommendation": {{
     "Investment_Action": "BUY | HOLD | SELL",
     "Numerical_Score": 0,
-    "Detailed_Explanation": "A comprehensive explanation of the recommendation and how it aligns with the numerical score."
-  }
-}
-'''
+    "Detailed_Explanation": "Provide a detailed explanation of the recommendation and how it aligns with the numerical score."
+  }}
+}}
+
+Please ensure the response strictly adheres to this JSON format. Include all fields and use placeholder text where necessary if data is unavailable.
 
 ### **Analysis steps:**
 1. **Summarize Key Insights:**
