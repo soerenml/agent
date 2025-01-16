@@ -1,3 +1,4 @@
+import time
 import requests
 from bs4 import BeautifulSoup
 
@@ -11,7 +12,6 @@ def scrape(url: str) -> list:
     Returns:
         list: A list of headlines extracted from the page.
     """
-    # Fetch the HTML content of the page
     html_content = requests.get(url).content
 
     # Parse the HTML content with BeautifulSoup
@@ -19,10 +19,10 @@ def scrape(url: str) -> list:
 
     headlines = soup.find_all('a', class_='JtKRv')
 
-    # Print all the headlines
-    all_headlines = []
-    for i in headlines:
-        all_headlines.append(i.text)
+    # Capture all headlines in a list
+    all_headlines = [headline.text for headline in headlines]
+
+    time.sleep(1)  # Small delay to be polite
 
     return all_headlines
     # Optionally, extract URLs of the news articles
