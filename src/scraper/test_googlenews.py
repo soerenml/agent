@@ -1,4 +1,4 @@
-from scraper.googlenews import scrape
+from googlenews import scrape
 import unittest
 
 class TestScrapeFunctionWithRealURL(unittest.TestCase):
@@ -13,7 +13,7 @@ class TestScrapeFunctionWithRealURL(unittest.TestCase):
         self.assertIsInstance(headlines, list, "Output should be a list")
         self.assertGreater(len(headlines), 0, "The list of headlines should not be empty")
 
-        print(headlines[:10])
+        print(f"\n Headlines extracted: \n\n\n {headlines[:10]}\n\n\n")
 
 if __name__ == '__main__':
     unittest.main()

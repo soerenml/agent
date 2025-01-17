@@ -3,9 +3,6 @@ from dotenv import load_dotenv
 from datetime import datetime, timedelta
 from langchain_openai import ChatOpenAI
 
-import unittest
-from scraper.test_googlenews import TestScrapeFunctionWithRealURL
-
 # Load the environment variables
 load_dotenv()
 
@@ -19,17 +16,6 @@ args = parser.parse_args()
 
 
 def run_main(args):
-    # Run the tests
-    test_result = unittest.main(exit=False)  # `exit=False` prevents the script from exiting after tests
-    if test_result.result.wasSuccessful():  # Check if all tests passed
-        # Run the main code if tests succeeded
-        run_main(args="your_arguments")  # Replace with your actual arguments
-    else:
-        print("Tests failed. Main code will not execute.")
-
-
-
-
     # ----------------- PARAMETERS -----------------
     TEST_RUN = args.test_run
 
