@@ -85,16 +85,14 @@ def finance_news_analyst(prompt: str, all_headlines: list, llm: ChatOpenAI):
     return invoke_chain(prompt_template, llm, {"headlines": all_headlines})
 
 
-def head_analyst(
-    prompt: str,
-    result_1: str,
-    result_2: str,
-    result_3: str,
-    llm: ChatOpenAI,
-    date: datetime,
-    historical_data: str,
-    print_option: bool = False
-):
+def head_analyst(prompt: str,
+                 result_1: str,
+                 result_2: str,
+                 result_3: str,
+                 llm: ChatOpenAI,
+                 date: datetime,
+                 historical_data: str,
+                 print_option: bool = False):
     """
     Perform analysis using the provided prompt, results, and LLM.
 
