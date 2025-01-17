@@ -5,21 +5,21 @@ import os
 def plot_technical_indicators(data: pd.DataFrame, data_tech: pd.DataFrame) -> None:
 
     data.reset_index(inplace=True)
-    data['Date'] = pd.to_datetime(data['Date'])
-    data.set_index('Date', inplace=True)
+    data['date'] = pd.to_datetime(data['date'])
+    data.set_index('date', inplace=True)
 
     # Calculating 20-day and 50-day moving averages
-    data['20_MA'] = data['Close'].rolling(window=20).mean()
-    data['50_MA'] = data['Close'].rolling(window=50).mean()
+    data['20_ma'] = data['close'].rolling(window=20).mean()
+    data['50_ma'] = data['close'].rolling(window=50).mean()
 
     # Creating the plot with extra height for more subplots
     plt.figure(figsize=(12, 18))  # Increased figure size for additional subplots
 
     # Plotting close price with 20-day and 50-day moving averages
     plt.subplot(6, 1, 1)
-    plt.plot(data.index, data['Close'], label='Close Price', marker='.')
-    plt.plot(data.index, data['20_MA'], label='20 Day MA', linestyle='--', color='orange')
-    plt.plot(data.index, data['50_MA'], label='50 Day MA', linestyle='--', color='green')
+    plt.plot(data.index, data['close'], label='Close Price', marker='.')
+    plt.plot(data.index, data['20_ma'], label='20 Day MA', linestyle='--', color='orange')
+    plt.plot(data.index, data['50_ma'], label='50 Day MA', linestyle='--', color='green')
     plt.title('Close Price with 20 and 50 Day Moving Averages')
     plt.ylabel('Price (USD)')
     plt.grid(True)
@@ -27,9 +27,9 @@ def plot_technical_indicators(data: pd.DataFrame, data_tech: pd.DataFrame) -> No
 
     # Plotting MACD and MACD Histogram
     plt.subplot(6, 1, 2)
-    plt.plot(data.index, data['MACD'], label='MACD', marker='.')
-    plt.plot(data.index, data['Signal_Line'], label='Signal Line', marker='.', linestyle='--')
-    plt.bar(data.index, data['MACD_Histogram'], label='MACD Histogram', alpha=0.5)
+    plt.plot(data.index, data['macd'], label='MACD', marker='.')
+    plt.plot(data.index, data['signal_line'], label='Signal Line', marker='.', linestyle='--')
+    plt.bar(data.index, data['macd_histogram'], label='MACD Histogram', alpha=0.5)
     plt.title('MACD Analysis')
     plt.ylabel('MACD Value')
     plt.grid(True)
@@ -37,7 +37,7 @@ def plot_technical_indicators(data: pd.DataFrame, data_tech: pd.DataFrame) -> No
 
     # Plotting RSI with horizontal lines at 70 and 30
     plt.subplot(6, 1, 3)
-    plt.plot(data.index, data['relative_strength_index_RSI'], label='RSI', marker='.')
+    plt.plot(data.index, data['relative_strength_index'], label='RSI', marker='.')
     plt.axhline(70, color='red', linestyle='--', linewidth=0.8, label='Overbought (70)')
     plt.axhline(30, color='green', linestyle='--', linewidth=0.8, label='Oversold (30)')
     plt.title('RSI Analysis')

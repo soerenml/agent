@@ -1,4 +1,4 @@
-from googlenews import scrape
+from googlenews_scraper import scrape
 import unittest
 
 class TestScrapeFunctionWithRealURL(unittest.TestCase):

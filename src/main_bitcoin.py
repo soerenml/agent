@@ -32,7 +32,7 @@ def run_main(args):
     llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model=model)
 
     # ----------------- Scrape news headlines -----------------
-    from scraper.googlenews import scrape
+    from scraper.googlenews_scraper import scrape
 
     all_headlines = scrape(url="https://news.google.com/search?q=bitcoin&hl=en-US&gl=US&ceid=US%3Aen")
 
@@ -44,17 +44,14 @@ def run_main(args):
     print(f"\n\n\n\n ======= News analyst ======= \n\n{output_news_analyst}\n\n\n\n")
 
     # ----------------- Scrape financial data -----------------
-    from scraper.yfinance import download_yfinance_data
+    from scraper.yfinance_scraper import download_yfinance_data
 
     end_date = datetime.now()
     start_date = end_date - timedelta(days=365)
-    data = download_yfinance_data(
-        ticker_symbol=TICKER_SYMBOL,
-        start_date=start_date,
-        end_date=end_date,
-        asset=ASSET,
-        print_data=True
-    )
+    data = download_yfinance_data(ticker_symbol=TICKER_SYMBOL,
+                                  start_date=start_date,
+                                  end_date=end_date,
+                                  asset=ASSET)
 
     # ----------------- Scrape technical data -----------------
     from scraper.bitcoin_tech import get_data

@@ -3,7 +3,7 @@ import yfinance as yf
 import pandas as pd
 from datetime import datetime
 
-def calculate_rsi(df: pd.DataFrame, periods=14):
+def calculate_rsi(df: pd.DataFrame, periods: int=14) -> pd.Series:
     """
     Calculate the Relative Strength Index (RSI) for a given DataFrame.
 
@@ -35,15 +35,15 @@ def calculate_rsi(df: pd.DataFrame, periods=14):
     return rsi
 
 
-def calculate_macd(df, short_period=12, long_period=26, signal_period=9):
+def calculate_macd(df, short_period: int=5, long_period: int=35, signal_period: int=5):
     """
     Calculates the Moving Average Convergence Divergence (MACD) indicators for a given DataFrame.
 
     Parameters:
     - df (pandas.DataFrame): The DataFrame containing the stock data.
-    - short_period (int): The number of periods for the short-term EMA. Default is 12.
-    - long_period (int): The number of periods for the long-term EMA. Default is 26.
-    - signal_period (int): The number of periods for the signal line EMA. Default is 9.
+    - short_period (int): The number of periods for the short-term EMA. Default is 5.
+    - long_period (int): The number of periods for the long-term EMA. Default is 35.
+    - signal_period (int): The number of periods for the signal line EMA. Default is 5.
 
     Returns:
     - macd_line (pandas.Series): The MACD line.
@@ -68,35 +68,44 @@ def calculate_macd(df, short_period=12, long_period=26, signal_period=9):
     return macd_line, signal_line, macd_histogram
 
 
-def download_yfinance_data(
-        ticker_symbol: str,
-        start_date: datetime,
-        asset: str,
-        end_date: datetime,
-        print_data: bool) -> pd.DataFrame:
+def download_yfinance_data(ticker_symbol: str,
+                           start_date: datetime,
+                           asset: str,
+                           end_date: datetime) -> pd.DataFrame:
     """
-    Downloads historical stock data for a given ticker symbol from Yahoo Finance.
+    Downloads historical stock data for a given ticker symbol from Yahoo Finance and calculates technical indicators.
 
-    Args:
-        ticker_symbol (str): The ticker symbol of the stock.
-        start_date (datetime): The start date of the data to download.
-        end_date (datetime): The end date of the data to download.
-        print_data (bool): Whether to print the downloaded data.
+    Parameters:
+    - ticker_symbol (str): The ticker symbol of the stock.
+    - start_date (datetime): The start date of the data to download.
+    - asset (str): The type of asset.
+    - end_date (datetime): The end date of the data to download.
+    - print_data (bool): Whether to print the downloaded data.
 
     Returns:
-        pd.DataFrame: A DataFrame containing the downloaded stock data.
-
+    - pd.DataFrame: A DataFrame containing the downloaded stock data with calculated technical indicators.
     """
     # Download the data
     yfinance_data = yf.download(ticker_symbol, start=start_date, end=end_date, interval='1d')
-    yfinance_data['Ticker'] = ticker_symbol
-    yfinance_data['ASSET'] = asset
-    yfinance_data['relative_strength_index_RSI'] = calculate_rsi(yfinance_data)
-    yfinance_data['MACD'], yfinance_data['Signal_Line'], yfinance_data['MACD_Histogram'] = calculate_macd(yfinance_data)
+    yfinance_data.columns = yfinance_data.columns.droplevel(1)  # Drops the second level ('BTC-USD')
+    yfinance_data.reset_index(inplace=True) # Reset the index to have the 'Date' as a column
 
-    if print_data:
-        print(yfinance_data.head())
-    else:
-        pass
+    # Modify the DataFrame to include the ticker symbol and asset type
+    yfinance_data['ticker'] = ticker_symbol
+    yfinance_data['asset'] = asset
+
+    # Calculate the technical indicators
+    yfinance_data['relative_strength_index'] = calculate_rsi(yfinance_data)
+    yfinance_data['macd'], yfinance_data['signal_line'], yfinance_data['macd_histogram'] = calculate_macd(yfinance_data)
+
+    yfinance_data = yfinance_data.rename(
+        columns={'Price': 'price',
+                 'Adj Close': 'adj_close',
+                 'Close': 'close',
+                 'High': 'high',
+                 'Low': 'low',
+                 'Open': 'open',
+                 'Volume': 'volume',
+                 'Date': 'date'})
 
     return yfinance_data
