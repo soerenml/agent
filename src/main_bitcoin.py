@@ -23,10 +23,10 @@ def run_main(args):
     TICKER_SYMBOL = "BTC-USD"
 
     if TEST_RUN=="True":
-        model = "o1"
+        model = "gpt-3.5-turbo"
         print(f"\n\n\nTEST RUN! - {model}\n\n\n")
     else:
-        model = "gpt-4-turbo"
+        model = "o1-preview"
         print(f"\n\n\nPRODUCTION RUN - {datetime.now():%Y-%m-%d} - {model}\n\n\n")
 
     llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model=model)
