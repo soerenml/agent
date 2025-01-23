@@ -23,7 +23,7 @@ def run_main(args):
     TICKER_SYMBOL = "BTC-USD"
 
     if TEST_RUN=="True":
-        model = "gpt-4o"
+        model = "o1"
         print(f"\n\n\nTEST RUN! - {model}\n\n\n")
     else:
         model = "gpt-4-turbo"
