@@ -55,9 +55,9 @@ def run_main():
     # Define constants
     ASSET = "bitcoin"
     TICKER_SYMBOL = "BTC-USD"
-    #MODEL = "o1-preview"
+    MODEL = "o1-preview"
     TEST_RUN = "True"
-    MODEL = "gpt-3.5-turbo"
+    #MODEL = "gpt-3.5-turbo"
 
     # Initialize the language model
     llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model=MODEL)
@@ -120,8 +120,8 @@ def run_main():
 
     # Print results
     tasks = [
-        ("Finance Analyst", output_finance_analyst),
         ("News Analyst", output_news_analyst),
+        ("Finance Analyst", output_finance_analyst),
         ("Technical Analyst", output_technical_analyst),
         ("Head Analyst", output_head_analyst)
     ]
