@@ -7,9 +7,5 @@
 - https://site.financialmodelingprep.com/
 - https://rapidapi.com/apidojo/api/seeking-alpha/pricing
 
-
-- 1. How can I feed complete analyst reports into my model?
-
 # Todo
-- hash rate calculation not working
-- ribbon analysis not working
+- RSI & MACD instable. Change prompt.

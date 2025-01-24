@@ -5,8 +5,9 @@ import pandas as pd
 import os
 from datetime import datetime
 
-
+#===============================================================================
 # Helper functions
+#===============================================================================
 
 def load_prompt_template(prompt_path: str) -> PromptTemplate:
     """
@@ -44,7 +45,9 @@ def invoke_chain(prompt_template: PromptTemplate, llm: ChatOpenAI, inputs: dict)
     rag_chain = prompt_template | llm | StrOutputParser()
     return rag_chain.invoke(inputs)
 
+#===============================================================================
 # Agents
+#===============================================================================
 
 def finance_data_analyst(prompt: str, data: pd.DataFrame, asset: str, llm: ChatOpenAI):
     """

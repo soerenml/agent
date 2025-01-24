@@ -70,11 +70,13 @@ def get_data(print_data: bool = False) -> pd.DataFrame:
         value_column_name='difficulty_ribbon'
     )
 
+    # Fetch active adresses data
     active_adresses_df = fetch_data(
         url = "https://api.blockchain.info/charts/n-unique-addresses?timespan=1year&format=json",
         value_column_name='active_addresses'
     )
 
+    # Fetch transaction volume data
     transaction_volume_df = fetch_data(
         url = "https://api.blockchain.info/charts/transactions-per-second?timespan=1year&format=json",
         value_column_name='transaction_volume'

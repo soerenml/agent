@@ -11,7 +11,12 @@ import argparse
 parser = argparse.ArgumentParser(description="Bitcoin trader")
 
 # By default the script always runs in production mode
-parser.add_argument("--test_run", "-n", type=str, default="False", help="Run in test or production mode")
+parser.add_argument(
+    "--test_run",
+    "-n", type=str,
+    default="False",
+    help="Run in test or production mode"
+)
 args = parser.parse_args()
 
 
