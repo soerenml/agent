@@ -11,5 +11,4 @@ langchainhub
 pandas
 yfinance
 matplotlib
-git+https://github.com/openai/swarm.git
 python-dotenv

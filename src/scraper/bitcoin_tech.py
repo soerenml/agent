@@ -52,7 +52,6 @@ def fetch_data(url: str, value_column_name: str) -> pd.DataFrame:
     df.rename(columns={'25-day': f"{value_column_name}-25-day"}, inplace=True)
     df.rename(columns={'y': value_column_name}, inplace=True)
 
-
     return df
 
 
