@@ -5,51 +5,38 @@ import pandas as pd
 import os
 from datetime import datetime
 
-#===============================================================================
-# Helper functions
-#===============================================================================
 
-def load_prompt_template(prompt_path: str) -> PromptTemplate:
-    """
-    Load a prompt template from a file path.
+def run_llm(
+        prompt_path: str,
+        llm: ChatOpenAI,
+        inputs: dict,
+        print_prompt: bool = False):
 
-    Args:
-        prompt_path (str): Path to the prompt file.
-
-    Returns:
-        PromptTemplate: The loaded prompt template.
-
-    Raises:
-        FileNotFoundError: If the prompt file does not exist.
-    """
     if not os.path.isfile(prompt_path):
         raise FileNotFoundError(f"Prompt file '{prompt_path}' does not exist.")
 
     with open(prompt_path, 'r', encoding='utf-8') as file:
         markdown_string = file.read()
-    return PromptTemplate.from_template(markdown_string)
 
+    prompt_template = PromptTemplate.from_template(markdown_string)
 
-def invoke_chain(prompt_template: PromptTemplate, llm: ChatOpenAI, inputs: dict):
-    """
-    Invoke the RAG chain with the given inputs.
+    if print_prompt:
+        rendered_prompt = prompt_template.format(**inputs)
+        print("\n===== Prompt - Head Analyst =====\n")
+        print(rendered_prompt)
+        print("\n===========================\n")
 
-    Args:
-        prompt_template (PromptTemplate): The prompt template for the chain.
-        llm (ChatOpenAI): The language model for the chain.
-        inputs (dict): The input data for invocation.
-
-    Returns:
-        The result of the chain invocation.
-    """
     rag_chain = prompt_template | llm | StrOutputParser()
-    return rag_chain.invoke(inputs)
+    llm_output = rag_chain.invoke(inputs)
 
-#===============================================================================
-# Agents
-#===============================================================================
+    return llm_output
 
-def finance_data_analyst(prompt: str, data: pd.DataFrame, asset: str, llm: ChatOpenAI):
+
+def finance_data_analyst(
+        prompt_path: str,
+        data: pd.DataFrame,
+        asset: str,
+        llm: ChatOpenAI):
     """
     Analyzes financial data using a prompt and a language model.
 
@@ -65,11 +52,18 @@ def finance_data_analyst(prompt: str, data: pd.DataFrame, asset: str, llm: ChatO
     if not isinstance(data, pd.DataFrame):
         raise ValueError("Provided data must be a pandas DataFrame.")
 
-    prompt_template = load_prompt_template(prompt)
-    return invoke_chain(prompt_template, llm, {"data": data, "asset": asset})
+    llm_output = run_llm(
+        prompt_path=prompt_path,
+        llm=llm,
+        inputs={"data": data, "asset": asset})
+
+    return llm_output
 
 
-def finance_news_analyst(prompt: str, all_headlines: list, llm: ChatOpenAI):
+def finance_news_analyst(
+        prompt_path: str,
+        all_headlines: list,
+        llm: ChatOpenAI):
     """
     Analyzes financial news using a language model.
 
@@ -84,18 +78,51 @@ def finance_news_analyst(prompt: str, all_headlines: list, llm: ChatOpenAI):
     if not isinstance(all_headlines, list):
         raise ValueError("Provided headlines must be a list.")
 
-    prompt_template = load_prompt_template(prompt)
-    return invoke_chain(prompt_template, llm, {"headlines": all_headlines})
+    llm_output = run_llm(
+        prompt_path=prompt_path,
+        llm=llm,
+        inputs={"headlines": all_headlines})
+
+    return llm_output
 
 
-def head_analyst(prompt: str,
-                 result_1: str,
-                 result_2: str,
-                 result_3: str,
-                 llm: ChatOpenAI,
-                 date: datetime,
-                 historical_data: str,
-                 print_option: bool = False):
+def technical_data_analyst(
+        prompt_path: str,
+        data: pd.DataFrame,
+        asset: str,
+        llm: ChatOpenAI):
+    """
+    Analyzes technical financial data using a prompt and a language model.
+
+    Args:
+        prompt (str): The path to the file containing the prompt for analysis.
+        data (pandas.DataFrame): The technical financial data to be analyzed.
+        asset (str): The asset to be analyzed.
+        llm (ChatOpenAI): The language model used for analysis.
+
+    Returns:
+        str: The result of the analysis.
+    """
+    if not isinstance(data, pd.DataFrame):
+        raise ValueError("Provided data must be a pandas DataFrame.")
+
+    llm_output = run_llm(
+        prompt_path=prompt_path,
+        llm=llm,
+        inputs={"data": data, "asset": asset})
+
+    return llm_output
+
+
+def head_analyst(
+        prompt_path: str,
+        result_1: str,
+        result_2: str,
+        result_3: str,
+        llm: ChatOpenAI,
+        date: datetime,
+        historical_data: str,
+        print_prompt: bool = False):
     """
     Perform analysis using the provided prompt, results, and LLM.
 
@@ -120,40 +147,10 @@ def head_analyst(prompt: str,
             }
 
 
-    # Load the prompt template
-    prompt_template = load_prompt_template(prompt)
+    llm_output = run_llm(
+        prompt_path=prompt_path,
+        llm=llm,
+        inputs=inputs,
+        print_prompt=print_prompt)
 
-    if print_option:
-        rendered_prompt = prompt_template.format(**inputs)
-        print("============================= Prompt [start] =============================")
-        print(rendered_prompt)
-        print("============================= Prompt [end] =============================")
-    else:
-        pass
-
-    # Invoke the LLM with the prompt and inputs
-    return invoke_chain(
-        prompt_template,
-        llm,
-        inputs
-    )
-
-
-def technical_data_analyst(prompt: str, data: pd.DataFrame, asset: str, llm: ChatOpenAI):
-    """
-    Analyzes technical financial data using a prompt and a language model.
-
-    Args:
-        prompt (str): The path to the file containing the prompt for analysis.
-        data (pandas.DataFrame): The technical financial data to be analyzed.
-        asset (str): The asset to be analyzed.
-        llm (ChatOpenAI): The language model used for analysis.
-
-    Returns:
-        str: The result of the analysis.
-    """
-    if not isinstance(data, pd.DataFrame):
-        raise ValueError("Provided data must be a pandas DataFrame.")
-
-    prompt_template = load_prompt_template(prompt)
-    return invoke_chain(prompt_template, llm, {"data": data, "asset": asset})
+    return llm_output

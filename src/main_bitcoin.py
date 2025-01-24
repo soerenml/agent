@@ -81,14 +81,14 @@ def run_main():
 
     # Use financial news analyst agent to analyze news
     output_news_analyst = finance_news_analyst(
-        prompt="src/prompts/news_analyst.md",
+        prompt_path="src/prompts/news_analyst.md",
         all_headlines=all_headlines,
         llm=llm
     )
 
     # Use financial data analyst agent to analyze financial data
     output_finance_analyst = finance_data_analyst(
-        prompt="src/prompts/financial_analyst.md",
+        prompt_path="src/prompts/financial_analyst.md",
         data=data,
         asset=ASSET,
         llm=llm
@@ -96,7 +96,7 @@ def run_main():
 
     # Use technical data analyst agent to analyze technical data
     output_technical_analyst = technical_data_analyst(
-        prompt="src/prompts/technical_analyst.md",
+        prompt_path="src/prompts/technical_analyst.md",
         data=data_tech,
         asset=ASSET,
         llm=llm
@@ -108,14 +108,14 @@ def run_main():
 
     # Use head analyst agent to analyze the results of the other agents
     output_head_analyst = head_analyst(
-        prompt="src/prompts/head_analyst.md",
+        prompt_path="src/prompts/head_analyst.md",
         result_1=output_news_analyst,
         result_2=output_finance_analyst,
         result_3=output_technical_analyst,
         llm=llm,
         date=datetime.now().strftime('%Y-%m-%d %H'),
         historical_data=historical_data,
-        print_option=False
+        print_prompt=False
     )
 
     # Print results
