@@ -5,10 +5,6 @@
 - Three agents available: financial analyst, technical analyst, news analyst, head analyst
 
 
-
-
-
-
 # Data used
 
 ## yfinance data
