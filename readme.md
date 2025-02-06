@@ -11,6 +11,9 @@
 
 # Data used
 
+## yfinance data
+- Crypto ticker symbols can be found [here](https://finance.yahoo.com/markets/crypto/all/?start=0&count=100)
+
 ## On-chain metrics
 
 [Source](https://www.blockchain.com/explorer/api/blockchain_api)
