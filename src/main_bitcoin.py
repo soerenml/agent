@@ -15,17 +15,8 @@ from scraper.bitcoin_tech import get_data
 # Import plot module for financial data
 from helper.plotter import plot_technical_indicators
 
-# Import finance_news_analyst agent module to analyze news
-from agents import finance_news_analyst
-
-# Import finance_data_analyst agent module to analyze financial data
-from agents import finance_data_analyst
-
-# Import technical_data_analyst agent module to analyze technical data
-from agents import technical_data_analyst
-
-# Import head_analyst agent module to analyse the results of the other agents
-from agents import head_analyst
+# Import agents for analysis
+from agents import finance_news_analyst, finance_data_analyst, technical_data_analyst, head_analyst
 
 
 # Load the environment variables
@@ -55,9 +46,9 @@ def run_main():
     # Define constants
     ASSET = "bitcoin"
     TICKER_SYMBOL = "BTC-USD"
-    MODEL = "o1-preview"
+    #MODEL = "o1-preview"
     TEST_RUN = "True"
-    #MODEL = "gpt-3.5-turbo"
+    MODEL = "gpt-3.5-turbo"
 
     # Initialize the language model
     llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model=MODEL)
