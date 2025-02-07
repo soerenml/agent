@@ -16,8 +16,12 @@ from scraper.bitcoin_tech import get_data
 from helper.plotter import plot_technical_indicators
 
 # Import agents for analysis
-from agents import finance_news_analyst, finance_data_analyst, technical_data_analyst, head_analyst
+from agents import finance_news_analyst, \
+    finance_data_analyst, technical_data_analyst, \
+    head_analyst, summerize_agent
 
+# Import function to merge markdown files
+from modules.past_market_intel import merge_markdown_files
 
 # Load the environment variables
 load_dotenv()
@@ -109,6 +113,27 @@ def run_main():
         print_prompt=False
     )
 
+    # Summarize the results from the head analyst
+    summary_results_head_analyst = summerize_agent(
+        prompt_path="src/prompts/summarizer.md",
+        data=output_head_analyst,
+        llm=llm
+    )
+
+    # Save the final report
+    report = f"report-{datetime.now():%Y-%m-%d}.md"
+    save_path = os.path.join('reports', report)
+    os.makedirs('reports', exist_ok=True)
+    with open(save_path, "w") as file:
+        file.write(summary_results_head_analyst)
+
+    # Merge the most recent reports
+    merge_markdown_files(
+        directory='reports',
+        num_files=7,
+        output_file='reports/merged_report.md'
+    )
+
     # Print results
     tasks = [
         ("News Analyst", output_news_analyst),
@@ -119,16 +144,6 @@ def run_main():
 
     for agent, output in tasks:
         print(f"\n === {agent} === \n\n{output}\n")
-
-    # Save the report of the head analyst
-    if TEST_RUN=="True":
-        pass
-    else:
-        report = f"report-{datetime.now():%Y-%m-%d}.md"
-        save_path = os.path.join('reports', report)
-        os.makedirs('reports', exist_ok=True)
-        with open(save_path, "w") as file:
-            file.write(output_head_analyst)
 
 if __name__ == "__main__":
     run_main()

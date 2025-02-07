@@ -22,12 +22,39 @@ def run_llm(
 
     if print_prompt:
         rendered_prompt = prompt_template.format(**inputs)
-        print("\n===== Prompt - Head Analyst =====\n")
+        print("\n===========================\n")
         print(rendered_prompt)
         print("\n===========================\n")
 
     rag_chain = prompt_template | llm | StrOutputParser()
     llm_output = rag_chain.invoke(inputs)
+
+    return llm_output
+
+
+def summerize_agent(
+        prompt_path: str,
+        data: str,
+        llm: ChatOpenAI):
+    """
+    Summarizes the provided data using a prompt and a language model.
+
+    Args:
+        prompt (str): The path to the file containing the prompt for analysis.
+        data (str): The text data to be analyzed.
+        asset (str): The asset to be analyzed.
+        llm (ChatOpenAI): The language model used for analysis.
+
+    Returns:
+        str: The result of the analysis.
+    """
+    if not isinstance(data, str):
+        raise ValueError("Provided data must be a pandas DataFrame.")
+
+    llm_output = run_llm(
+        prompt_path=prompt_path,
+        llm=llm,
+        inputs={"data": data})
 
     return llm_output
 
@@ -139,12 +166,12 @@ def head_analyst(
         dict: The final result of the analysis.
     """
     inputs = {
-                "string_1": result_1,
-                "string_2": result_2,
-                "string_3": result_3,
-                "date": date,
-                "historical_data": historical_data
-            }
+        "string_1": result_1,
+        "string_2": result_2,
+        "string_3": result_3,
+        "date": date,
+        "historical_data": historical_data
+    }
 
 
     llm_output = run_llm(
