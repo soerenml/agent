@@ -9,8 +9,6 @@ Analyze the ({asset}) data provided and provide a clear recommendation (Buy, Hol
 - **Columns:** "date","adj_close","close","high","low","open","volume","ticker","asset","relative_strength_index","macd",signal_line","macd_histogram"
 - **({data})**
 
-
-
 **Instructions**:
 Follow these steps to create your analysis, including a numerical evaluation from 0 to 10 where:
 
