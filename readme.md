@@ -1,9 +1,11 @@
 # Agent
 
-# Agent 1.0
+# Issues
+- Trading strategy is ill defined. The progam does not know if it should make decision on a daily, weekly, monthly etc. level.
+
+# Tags: 1.0
 - Fully functioning agent guiding bitcoin investment.
 - Three agents available: financial analyst, technical analyst, news analyst, head analyst
-
 
 # Data used
 
