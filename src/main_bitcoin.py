@@ -46,9 +46,9 @@ def run_main():
     # Define constants
     ASSET = "bitcoin"
     TICKER_SYMBOL = "BTC-USD"
-    #MODEL = "o1-preview"
+    MODEL = "o1-preview"
     TEST_RUN = "True"
-    MODEL = "gpt-3.5-turbo"
+    #MODEL = "gpt-3.5-turbo"
 
     # Initialize the language model
     llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model=MODEL)

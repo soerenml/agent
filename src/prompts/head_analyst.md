@@ -59,3 +59,4 @@ Conduct a **weekly** analysis of two assets based on evaluations from Analysts A
    - Include the current date: {date} at the beginning of your response.
    - Ensure all analysis is framed in a **weekly** context.
    - Use bullet points or subheadings for clarity and readability.
+   - Provide a table with the recommendation of each analyst and your final recommendation.
