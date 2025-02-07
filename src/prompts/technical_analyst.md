@@ -10,8 +10,6 @@ Follow these steps to generate your **weekly** analysis, including a numerical e
 - **5**: Hold
 - **10**: Extremely strong buy
 
----
-
 ### **1. Crypto Overview**
 - Identify the cryptocurrency: **Bitcoin (BTC)**
 - Summarize its **weekly performance**, including key support/resistance levels.
@@ -34,8 +32,6 @@ Follow these steps to generate your **weekly** analysis, including a numerical e
   - Examine transaction_volume and its **weekly** moving averages.
   - **Higher transaction volume** reflects strong user activity and bullish sentiment.
   - **Lower transaction volume** could signal reduced demand or market hesitation.
-
----
 
 ### **4. Weekly Numerical Evaluation**
 - Assign a score from **0 to 10** based on the **weekly** market data:

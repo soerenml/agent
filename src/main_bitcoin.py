@@ -51,7 +51,6 @@ def run_main():
     ASSET = "bitcoin"
     TICKER_SYMBOL = "BTC-USD"
     MODEL = "o1-preview"
-    TEST_RUN = "True"
     #MODEL = "gpt-3.5-turbo"
 
     # Initialize the language model
