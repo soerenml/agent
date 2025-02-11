@@ -1,18 +1,45 @@
-# Agent
+# MD&#967;
 
-# Issues
-- Trading strategy is ill defined. The progam does not know if it should make decision on a daily, weekly, monthly etc. level.
+A crypto trading model for Bitcoin that uses an AI-powered agents to provide investment recommendations (Buy, Sell, Hold).
 
-# Tags: 1.0
-- Fully functioning agent guiding bitcoin investment.
-- Three agents available: financial analyst, technical analyst, news analyst, head analyst
 
-# Data used
+## How MD&#967; works
 
-## yfinance data
+```mermaid
+graph TD;
+
+    %% Data Sources
+    subgraph "Agents (LLMS) & data"
+        Google_News["Google News"] --> Agent_A["Agent A"]
+        YFinance["Yahoo Finance"] --> Agent_B["Agent B"]
+        Blockchain_metrics["Blockchain Metrics"] --> Agent_C["Agent C"]
+    end
+
+    %% Agents create reports
+    subgraph "Agent outputs"
+        Agent_A --> Report_A["Analysis Report A"]
+        Agent_B --> Report_B["Analysis Report B"]
+        Agent_C --> Report_C["Analysis Report C"]
+    end
+
+    %% Decision Making
+    subgraph "Head Analyst Review"
+        Report_A --> Head_Analyst["Head Analyst"]
+        Report_B --> Head_Analyst
+        Report_C --> Head_Analyst
+    end
+
+    %% Final Decision & Storage
+    Head_Analyst --> Final_report["Final Investment Report"]
+    Final_report -->|Stored| Database["Database"]
+    Database --|Historical Data Feedback|--> Head_Analyst
+```
+## Data used
+
+### yfinance data
 - Crypto ticker symbols can be found [here](https://finance.yahoo.com/markets/crypto/all/?start=0&count=100)
 
-## On-chain metrics
+### On-chain metrics
 
 [Source](https://www.blockchain.com/explorer/api/blockchain_api)
 - Hash Rate: Indicates the computational power used to mine Bitcoin. A rising hash rate suggests a secure and growing network.
