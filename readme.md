@@ -1,6 +1,6 @@
 # MD&#967;
 
-A crypto trading model for Bitcoin that uses an AI-powered agents to provide investment recommendations (Buy, Sell, Hold).
+A crypto trading tool for Bitcoin that uses an AI-powered agents to provide investment recommendations (Buy, Sell, Hold).
 
 
 ## How MD&#967; works
