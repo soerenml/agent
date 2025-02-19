@@ -151,20 +151,5 @@ def run_main():
         print(f"\n === {agent} === \n\n{output}\n")
 
 
-
-result = subprocess.run([sys.executable, "-m", "pytest", "scraper/test_yfinance_scraper.py"], capture_output=True, text=True)
-print(result.stdout)
-
-# Stop execution if tests fail
-if result.returncode != 0:
-    print("Unit tests failed. Exiting...")
-    sys.exit(1)
-
-
-
-
-
-
-
 if __name__ == "__main__":
     run_main()
