@@ -1,6 +1,5 @@
 import pandas as pd
 import requests
-import numpy as np
 from functools import reduce
 
 def fetch_data(url: str, value_column_name: str) -> pd.DataFrame:

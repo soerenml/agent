@@ -2,6 +2,8 @@ import os
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
 from langchain_openai import ChatOpenAI
+import subprocess
+import sys
 
 # Import Google news scraper module
 from scraper.googlenews_scraper import scrape
@@ -147,6 +149,22 @@ def run_main():
 
     for agent, output in tasks:
         print(f"\n === {agent} === \n\n{output}\n")
+
+
+
+result = subprocess.run([sys.executable, "-m", "pytest", "scraper/test_yfinance_scraper.py"], capture_output=True, text=True)
+print(result.stdout)
+
+# Stop execution if tests fail
+if result.returncode != 0:
+    print("Unit tests failed. Exiting...")
+    sys.exit(1)
+
+
+
+
+
+
 
 if __name__ == "__main__":
     run_main()
