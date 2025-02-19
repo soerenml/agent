@@ -26,12 +26,6 @@ Determine the optimal **weekly trading action** for Bitcoin based on this week�
    - Highlight potential short-term risks (e.g., regulation, macroeconomic uncertainty, institutional moves).
    - Identify short-term opportunities (e.g., adoption trends, bullish sentiment, major partnerships).
 
-5. **Technical Analysis for Weekly Trading Signals:**
-   - Assess key **technical indicators** for weekly trading:
-     - **Moving Averages** (Weekly 50-day & 200-day trend analysis)
-     - **Relative Strength Index (RSI)** – Detect overbought (>70) or oversold (<30) conditions.
-     - **MACD & Signal Line** – Identify potential trend reversals for the **week ahead**.
-
 6. **Provide a Clear Weekly Trading Recommendation:**
    - Recommend one action for Bitcoin over the **next week**: **BUY, HOLD, or SELL**.
    - Justify the decision with **specific insights from the weekly analysis**.
