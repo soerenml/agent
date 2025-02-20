@@ -2,8 +2,6 @@ import os
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
 from langchain_openai import ChatOpenAI
-import subprocess
-import sys
 
 # Import Google news scraper module
 from scraper.googlenews_scraper import scrape
@@ -56,7 +54,7 @@ def run_main():
     # Define constants
     ASSET = "bitcoin"
     TICKER_SYMBOL = "BTC-USD"
-    MODEL = "o1-preview"
+    MODEL = "gpt-4-turbo"
     #MODEL = "gpt-3.5-turbo"
 
     # Initialize the language model
