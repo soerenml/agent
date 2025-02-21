@@ -55,5 +55,8 @@ graph TD;
 
 [A Multimodal Foundation Agent for Financial Trading:
 Tool-Augmented, Diversified, and Generalist](https://arxiv.org/abs/2402.18485)
+
+[TradingAgents: Multi-Agents LLM Financial Trading Framework](https://arxiv.org/pdf/2412.20138)
+
 [Can Large Language Models Beat Wall Street? Unveiling the Potential of AI in Stock
 Selection](https://arxiv.org/abs/2401.03737)
