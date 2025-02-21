@@ -51,7 +51,9 @@ graph TD;
 - Network Value to Transactions Ratio (NVT): Similar to a P/E ratio in stocks, it compares Bitcoin's market cap to its transaction volume.
 - Realized Cap: Evaluates the market cap based on the price at which each Bitcoin was last moved. It helps identify over/undervaluation.
 
-# Paper you should read
+# Paper you should read (sorted by relevance)
 
-Can Large Language Models Beat Wall Street? Unveiling the Potential of AI in Stock
-Selection [link](https://arxiv.org/abs/2401.03737)
+[A Multimodal Foundation Agent for Financial Trading:
+Tool-Augmented, Diversified, and Generalist](https://arxiv.org/abs/2402.18485)
+[Can Large Language Models Beat Wall Street? Unveiling the Potential of AI in Stock
+Selection](https://arxiv.org/abs/2401.03737)
