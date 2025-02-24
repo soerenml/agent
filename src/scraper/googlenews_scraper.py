@@ -1,6 +1,5 @@
-import time
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, SoupStrainer
 
 
 def scrape(url: str) -> list:
@@ -13,11 +12,11 @@ def scrape(url: str) -> list:
     Returns:
         list: A list of headlines extracted from the page.
     """
+    with requests.get(url) as response:
+        html_content = response.content
 
-    html_content = requests.get(url).content
-    soup = BeautifulSoup(html_content, 'html.parser')
-    headlines = soup.find_all('a', class_='JtKRv')
-    all_headlines = [headline.text for headline in headlines]
-    time.sleep(1)  # Small delay to be polite
-
-    return all_headlines
+    headlines = BeautifulSoup(
+        html_content, 'html.parser',
+        parse_only=SoupStrainer('a', class_='JtKRv')
+    )
+    return [headline.text for headline in headlines]
