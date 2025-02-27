@@ -30,7 +30,7 @@ graph TD;
     end
 
     %% Final Decision & Storage
-    Head_Analyst --> Final_report["Final Investment Report"]
+    Head_Analyst --> Summarizer --> Final_report["Final Investment Report"]
     Final_report -->|Stored| Database["Database"]
     Database --|Historical Data Feedback|--> Head_Analyst
 ```
