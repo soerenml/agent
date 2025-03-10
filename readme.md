@@ -2,6 +2,9 @@
 
 A crypto trading tool for Bitcoin that uses an AI-powered agents to provide investment recommendations (Buy, Sell, Hold).
 
+## Vision
+ Tackle tough challenges in a competitive field. Dream big, start small, learn fast, and throw all the AI against the wall to see what sticks.
+
 
 ## How MD&#967; works
 
