@@ -104,6 +104,14 @@ def run_main():
     with open('reports/merged_report.md', 'r', encoding='utf-8') as file:
         historical_data = file.read()
 
+    # Load missed strong buy.
+    with open('reports/missed_strong_buy.md', 'r', encoding='utf-8') as file:
+        missed_strong_buy = file.read()
+
+    # Load missed strong sell.
+    with open('reports/missed_strong_sell.md', 'r', encoding='utf-8') as file:
+        missed_strong_sell = file.read()
+
     # Use head analyst agent to analyze the results of the other agents
     output_head_analyst = head_analyst(
         prompt_path="src/prompts/head_analyst.md",
@@ -113,6 +121,8 @@ def run_main():
         llm=llm,
         date=datetime.now().strftime('%Y-%m-%d %H'),
         historical_data=historical_data,
+        missed_strong_buy=missed_strong_buy,
+        missed_strong_sell=missed_strong_sell,
         print_prompt=False
     )
 

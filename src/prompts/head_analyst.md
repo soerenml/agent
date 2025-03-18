@@ -35,6 +35,11 @@ Conduct a **daily** analysis of two assets based on evaluations from Analysts A,
      - Identify patterns or biases in their historical predictions.
      - Discuss how past trends align with the current daily evaluation.
 
+#### 5. Misstakes you made in the past:
+    - This is a list of recommendations you gave {missed_strong_buy} where bitcoin increased more than 3% and your recommendation was less than 8 (i.e. no strong buy).
+    - This is a list of recommendations you gave {missed_strong_sell} where bitcoin descreased more than 3% and your recommendation was higher than (i.e. no strong buy).
+    - Reflect hard on your past recommendations and avoid those misstakes in the future.
+
 #### 5. Daily Recommendation:
    - Provide a well-supported recommendation based on the findings:
      - **Buy**: Highlight factors indicating the asset is a strong investment today.

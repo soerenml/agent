@@ -149,6 +149,8 @@ def head_analyst(
         llm: ChatOpenAI,
         date: datetime,
         historical_data: str,
+        missed_strong_sell: str,
+        missed_strong_buy: str,
         print_prompt: bool = False):
     """
     Perform analysis using the provided prompt, results, and LLM.
@@ -161,6 +163,8 @@ def head_analyst(
         llm (ChatOpenAI): The ChatOpenAI object used for language model interaction.
         date (datetime): The current date to include in the analysis.
         historical_data (str): Historical data for analysis.
+        missed_strong_sell (str): Where agent should have sold but missed.
+        missed_strong_buy (str): Where agent should have bought but missed.
 
     Returns:
         dict: The final result of the analysis.
@@ -170,7 +174,9 @@ def head_analyst(
         "string_2": result_2,
         "string_3": result_3,
         "date": date,
-        "historical_data": historical_data
+        "historical_data": historical_data,
+        "missed_strong_sell": missed_strong_sell,
+        "missed_strong_buy": missed_strong_buy
     }
 
 

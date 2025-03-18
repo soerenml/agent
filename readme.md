@@ -36,6 +36,8 @@ graph TD;
     Head_Analyst --> Summarizer --> Final_report["Final Investment Report"]
     Final_report -->|Stored| Database["Database"]
     Database --|Historical Data Feedback|--> Head_Analyst
+    Database --|Missed buys|--> Head_Analyst
+    Database --|Missed sells|--> Head_Analyst
 ```
 ## Data used
 
