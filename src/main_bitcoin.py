@@ -54,7 +54,7 @@ def run_main():
     # Define constants
     ASSET = "bitcoin"
     TICKER_SYMBOL = "BTC-USD"
-    MODEL = "gpt-4-turbo"
+    MODEL = "o1-mini"
     #MODEL = "gpt-3.5-turbo"
 
     # Initialize the language model
