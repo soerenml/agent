@@ -115,9 +115,9 @@ def run_main():
     # Use head analyst agent to analyze the results of the other agents
     output_head_analyst = head_analyst(
         prompt_path="src/prompts/head_analyst.md",
-        result_1=output_news_analyst,
-        result_2=output_finance_analyst,
-        result_3=output_technical_analyst,
+        result_news_analyst=output_news_analyst,
+        result_finance_analyst=output_finance_analyst,
+        result_technical_analyst=output_technical_analyst,
         llm=llm,
         date=datetime.now().strftime('%Y-%m-%d %H'),
         historical_data=historical_data,

@@ -143,9 +143,9 @@ def technical_data_analyst(
 
 def head_analyst(
         prompt_path: str,
-        result_1: str,
-        result_2: str,
-        result_3: str,
+        result_news_analyst: str,
+        result_finance_analyst: str,
+        result_technical_analyst: str,
         llm: ChatOpenAI,
         date: datetime,
         historical_data: str,
@@ -170,9 +170,9 @@ def head_analyst(
         dict: The final result of the analysis.
     """
     inputs = {
-        "string_1": result_1,
-        "string_2": result_2,
-        "string_3": result_3,
+        "result_news_analyst": result_news_analyst,
+        "result_finance_analyst": result_finance_analyst,
+        "result_technical_analyst": result_technical_analyst,
         "date": date,
         "historical_data": historical_data,
         "missed_strong_sell": missed_strong_sell,

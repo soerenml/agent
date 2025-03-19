@@ -13,3 +13,5 @@ def test_scrape_real_url():
     assert len(headlines) > 0, "The list of headlines should not be empty"
 
     print(f"\n Headlines extracted: \n\n\n {headlines[:10]}\n\n\n")
+
+test_scrape_real_url()
