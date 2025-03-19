@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
+from langchain_deepseek import ChatDeepSeek
 from langchain_openai import ChatOpenAI
 
 # Import Google news scraper module
@@ -58,7 +59,14 @@ def run_main():
     #MODEL = "gpt-3.5-turbo"
 
     # Initialize the language model
-    llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model=MODEL)
+    llm1 = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model=MODEL)
+
+    llm = ChatDeepSeek(model="deepseek-chat",  # Specify the model name
+                       temperature=0,
+                       max_tokens=None,
+                       timeout=None,
+                       max_retries=2,
+                       api_key=os.getenv("DEEPSEEK_API_KEY"))
 
     # Scrape news headlines
     all_headlines = scrape(url="https://news.google.com/search?q=bitcoin&hl=en-US&gl=US&ceid=US%3Aen")
