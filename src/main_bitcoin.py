@@ -55,21 +55,32 @@ def run_main():
     # Define constants
     ASSET = "bitcoin"
     TICKER_SYMBOL = "BTC-USD"
-    MODEL = "o1-mini"
-    #MODEL = "gpt-3.5-turbo"
+    #MODEL = "o1-mini"
+    MODEL = "gpt-4-turbo"
 
     # Initialize the language model
-    llm1 = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model=MODEL)
 
-    llm = ChatDeepSeek(model="deepseek-chat",  # Specify the model name
-                       temperature=0,
-                       max_tokens=None,
-                       timeout=None,
-                       max_retries=2,
-                       api_key=os.getenv("DEEPSEEK_API_KEY"))
+    llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model=MODEL)
+
+    llm_deepset_reasoning = ChatDeepSeek(
+        model="deepseek-reasoner",  # Specify the model name deepseek-reasoner
+        temperature=0,
+        max_tokens=None,
+        timeout=None,
+        max_retries=2,
+        api_key=os.getenv("DEEPSEEK_API_KEY")
+    )
 
     # Scrape news headlines
     all_headlines = scrape(url="https://news.google.com/search?q=bitcoin&hl=en-US&gl=US&ceid=US%3Aen")
+
+    # Use financial news analyst agent to analyze news
+    output_news_analyst = finance_news_analyst(
+        prompt_path="src/prompts/news_analyst.md",
+        all_headlines=all_headlines,
+        llm=llm_deepset_reasoning,
+        print_output=True
+    )
 
     # Scrape yfinance data
     data = download_yfinance_data(
@@ -79,33 +90,28 @@ def run_main():
         end_date=datetime.now()
     )
 
+    # Use financial data analyst agent to analyze financial data
+    output_finance_analyst = finance_data_analyst(
+        prompt_path="src/prompts/financial_analyst.md",
+        data=data,
+        asset=ASSET,
+        llm=llm_deepset_reasoning,
+        print_output=True
+    )
+
     # Scrape technical data
     data_tech = get_data(print_data=False)
 
     # Plot financial data
     plot_technical_indicators(data=data, data_tech=data_tech)
 
-    # Use financial news analyst agent to analyze news
-    output_news_analyst = finance_news_analyst(
-        prompt_path="src/prompts/news_analyst.md",
-        all_headlines=all_headlines,
-        llm=llm
-    )
-
-    # Use financial data analyst agent to analyze financial data
-    output_finance_analyst = finance_data_analyst(
-        prompt_path="src/prompts/financial_analyst.md",
-        data=data,
-        asset=ASSET,
-        llm=llm
-    )
-
     # Use technical data analyst agent to analyze technical data
     output_technical_analyst = technical_data_analyst(
         prompt_path="src/prompts/technical_analyst.md",
         data=data_tech,
         asset=ASSET,
-        llm=llm
+        llm=llm_deepset_reasoning,
+        print_output=True
     )
 
     # Load the previous reports
@@ -126,7 +132,7 @@ def run_main():
         result_news_analyst=output_news_analyst,
         result_finance_analyst=output_finance_analyst,
         result_technical_analyst=output_technical_analyst,
-        llm=llm,
+        llm=llm_deepset_reasoning,
         date=datetime.now().strftime('%Y-%m-%d %H'),
         historical_data=historical_data,
         missed_strong_buy=missed_strong_buy,

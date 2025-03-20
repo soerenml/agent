@@ -1,6 +1,6 @@
 from langchain_core.prompts.prompt import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from langchain_openai import ChatOpenAI
+from langchain_core.language_models import BaseLanguageModel
 import pandas as pd
 import os
 from datetime import datetime
@@ -8,7 +8,7 @@ from datetime import datetime
 
 def run_llm(
         prompt_path: str,
-        llm: ChatOpenAI,
+        llm: BaseLanguageModel,
         inputs: dict,
         print_prompt: bool = False):
 
@@ -35,7 +35,7 @@ def run_llm(
 def summerize_agent(
         prompt_path: str,
         data: str,
-        llm: ChatOpenAI):
+        llm: BaseLanguageModel):
     """
     Summarizes the provided data using a prompt and a language model.
 
@@ -63,7 +63,8 @@ def finance_data_analyst(
         prompt_path: str,
         data: pd.DataFrame,
         asset: str,
-        llm: ChatOpenAI):
+        llm: BaseLanguageModel,
+        print_output: bool = False):
     """
     Analyzes financial data using a prompt and a language model.
 
@@ -84,13 +85,18 @@ def finance_data_analyst(
         llm=llm,
         inputs={"data": data, "asset": asset})
 
+    # Print the output if requested
+    if print_output:
+        print(llm_output)
+
     return llm_output
 
 
 def finance_news_analyst(
         prompt_path: str,
         all_headlines: list,
-        llm: ChatOpenAI):
+        llm: BaseLanguageModel,
+        print_output: bool = False):
     """
     Analyzes financial news using a language model.
 
@@ -110,6 +116,11 @@ def finance_news_analyst(
         llm=llm,
         inputs={"headlines": all_headlines})
 
+
+    # Print the output if requested
+    if print_output:
+        print(llm_output)
+
     return llm_output
 
 
@@ -117,7 +128,8 @@ def technical_data_analyst(
         prompt_path: str,
         data: pd.DataFrame,
         asset: str,
-        llm: ChatOpenAI):
+        llm: BaseLanguageModel,
+        print_output: bool = False):
     """
     Analyzes technical financial data using a prompt and a language model.
 
@@ -138,6 +150,10 @@ def technical_data_analyst(
         llm=llm,
         inputs={"data": data, "asset": asset})
 
+    # Print the output if requested
+    if print_output:
+        print(llm_output)
+
     return llm_output
 
 
@@ -146,7 +162,7 @@ def head_analyst(
         result_news_analyst: str,
         result_finance_analyst: str,
         result_technical_analyst: str,
-        llm: ChatOpenAI,
+        llm: BaseLanguageModel,
         date: datetime,
         historical_data: str,
         missed_strong_sell: str,
