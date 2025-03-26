@@ -39,6 +39,17 @@ graph TD;
     Database --|Missed buys|--> Head_Analyst
     Database --|Missed sells|--> Head_Analyst
 ```
+
+## Trading performance (Start 25.03.25)
+### Performance: 0.19
+| Date  | Price  | Action  |
+|-----------|-----------|-----------|
+| 25.03.25  | 87.068 | Buy  |
+| Row 2, A  | Row 2, B  | Row 2, C  |
+| Row 3, A  | Row 3, B  | Row 3, C  |
+``
+
+
 ## Data used
 
 ### yfinance data
