@@ -47,7 +47,6 @@ graph TD;
 | 25.03.25  | 87.068 | Buy  |
 
 (If neither buy or sell, assets are on hold)
-``
 
 
 ## Data used
