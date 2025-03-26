@@ -41,12 +41,12 @@ graph TD;
 ```
 
 ## Trading performance (Start 25.03.25)
-### Performance: 0.19
+### Performance: 0.19%
 | Date  | Price  | Action  |
 |-----------|-----------|-----------|
 | 25.03.25  | 87.068 | Buy  |
-| Row 2, A  | Row 2, B  | Row 2, C  |
-| Row 3, A  | Row 3, B  | Row 3, C  |
+
+(If neither buy or sell, assets are on hold)
 ``
 
 
